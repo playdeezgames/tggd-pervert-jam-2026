@@ -84,12 +84,13 @@ Public Class World
         Data.Messages.Add(messageData)
     End Sub
 
-    Public Function CreateLocation(name As String, flavor As String, Optional initializer As LocationInitializer = Nothing) As ILocation Implements IWorld.CreateLocation
+    Public Function CreateLocation(entityType As String, name As String, flavor As String, Optional initializer As LocationInitializer = Nothing) As ILocation Implements IWorld.CreateLocation
         Dim locationId = Guid.NewGuid
         Data.Locations(locationId) = New LocationData With
             {
                 .Name = name,
-                .Flavor = flavor
+                .Flavor = flavor,
+                .EntityType = entityType
             }
         Dim result = Location.Create(Me, Data, locationId)
         initializer?.Invoke(result)

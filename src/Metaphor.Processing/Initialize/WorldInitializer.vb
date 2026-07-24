@@ -5,7 +5,7 @@ Friend Module WorldInitializer
     <Extension>
     Friend Sub Initialize(world As IWorld, context As IInitializationContext)
         world.Clear()
-        world.CreateLocation("On Yer Journey", "Yer on yer journey.", LocationInitializer.Initialize(context))
+        world.CreateLocation(LocationTypes.BLUE_ROOM, "The Blue Room", "Yer in the Blue Room.", LocationInitializer.Initialize(context))
         world.AddMessage("So it begins!")
         world.Avatar.Look()
     End Sub
