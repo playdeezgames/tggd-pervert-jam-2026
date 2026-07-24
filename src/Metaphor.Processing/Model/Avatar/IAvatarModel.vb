@@ -2,4 +2,5 @@
     Sub ShowStatus()
     ReadOnly Property Inventory As IInventoryModel
     ReadOnly Property Verbs As IEnumerable(Of IVerbModel)
+    Sub Look()
 End Interface

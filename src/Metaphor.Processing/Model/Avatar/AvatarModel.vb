@@ -26,6 +26,11 @@ Friend Class AvatarModel
         avatar.ShowStatus()
     End Sub
 
+    Public Sub Look() Implements IAvatarModel.Look
+        avatar.World.ClearMessages()
+        avatar.Look()
+    End Sub
+
     Friend Shared Function Create(avatar As ICharacter) As IAvatarModel
         Return New AvatarModel(avatar)
     End Function

@@ -26,11 +26,6 @@ Friend Class LocationModel
         Return New LocationModel(location)
     End Function
 
-    Public Sub Look() Implements ILocationModel.Look
-        location.World.ClearMessages()
-        location.World.Avatar.Look()
-    End Sub
-
     Public ReadOnly Property Ground As IGroundModel Implements ILocationModel.Ground
         Get
             Return GroundModel.Create(location.World)
