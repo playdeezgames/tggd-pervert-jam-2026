@@ -44,5 +44,14 @@ Friend Module CharacterExtensions
         Dim world = character.World
         world.AddMessage($"{character.Name}'s Status:")
         world.AddMessage(character.Flavor)
+        world.AddMessage($"Flesh: {character.GetFleshGrams()}/{character.GetMaximumFleshGrams()}g")
     End Sub
+    <Extension>
+    Friend Function GetFleshGrams(character As ICharacter) As Integer
+        Return character.GetCounter(Counters.FLESH_GRAMS)
+    End Function
+    <Extension>
+    Friend Function GetMaximumFleshGrams(character As ICharacter) As Integer
+        Return character.GetCounterMaximum(Counters.FLESH_GRAMS)
+    End Function
 End Module

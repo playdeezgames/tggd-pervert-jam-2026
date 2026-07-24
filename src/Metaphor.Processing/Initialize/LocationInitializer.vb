@@ -11,6 +11,7 @@ Friend Module LocationInitializer
     Private Function InitializeAvatar(context As IInitializationContext) As CharacterInitializer
         Return Sub(character)
                    character.World.Avatar = character
+                   character.InitializeCounter(Counters.FLESH_GRAMS, 454, 0, 454)
                End Sub
     End Function
 End Module

@@ -9,7 +9,7 @@ Friend Delegate Function ElementRenderer(element As IDisplayElement) As Boolean
 
 Module Program
     Sub Main(args As String())
-        Console.Title = "(Pervert Jam 2026 Title)"
+        Console.Title = "Flesh Grams: 454"
         Dim display As IDisplay = MetaphorDisplay.Create(True, New Persister).Result
         While display.Running
             AnsiConsole.Clear()
