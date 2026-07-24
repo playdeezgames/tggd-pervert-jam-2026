@@ -24,7 +24,7 @@ Friend Class AdPrompt
 
     Friend Shared Function Launch(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As DialogSource
         Return Function()
-                   model.ShowAd()
+                   model.Ad.Show()
                    Return New AdPrompt(context, model, previous)
                End Function
     End Function

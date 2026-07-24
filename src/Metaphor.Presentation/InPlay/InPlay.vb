@@ -13,7 +13,7 @@ Friend Class InPlay
     End Function
 
     Public Overrides Function Run() As IDialogPrompt
-        If Model.InAd Then
+        If Model.Ad.InProgress Then
             Return AdPrompt.Launch(Context, Model, Previous).Invoke().Run()
         End If
         Return NavigationMenu.Launch(Context, Model, Previous).Invoke().Run()

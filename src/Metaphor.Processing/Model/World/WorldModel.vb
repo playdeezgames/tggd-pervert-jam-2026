@@ -31,9 +31,9 @@ Public Class WorldModel
         End Get
     End Property
 
-    Public ReadOnly Property InAd As Boolean Implements IWorldModel.InAd
+    Public ReadOnly Property Ad As IAdModel Implements IWorldModel.Ad
         Get
-            Return Entity.AdFinish.HasValue
+            Return AdModel.Create(Entity)
         End Get
     End Property
 
@@ -44,30 +44,6 @@ Public Class WorldModel
 
     Public Sub Abandon() Implements IWorldModel.Abandon
         Entity.Clear()
-    End Sub
-
-    Public Sub ShowAd() Implements IWorldModel.ShowAd
-        Entity.ClearMessages()
-        If Entity.AdFinish.Value > DateTimeOffset.Now Then
-            Dim timeRemaining = Entity.AdFinish.Value - DateTimeOffset.Now
-            Entity.AddMessage($"Time left in ad break: {timeRemaining.ToString("mm\:ss")}")
-            Entity.AddMessage("(This is a turn based game. As such, this counter will not automatically change. You have to click the OK button to refresh.)")
-            Entity.AddMessage(
-            "For all yer umlauting needs! umlaut.fyi",
-            New Dictionary(Of String, String) From
-            {
-                {"ELEMENT_TYPE", "LINK"},
-                {"URL", "https://umlaut.fyi/"}
-            })
-        Else
-            Entity.AddMessage("Ad break is complete! You may return to yer metaphor!")
-            Dim avatar = Entity.Avatar
-            Entity.AdFinish = Nothing
-        End If
-    End Sub
-
-    Public Sub StartAd() Implements IWorldModel.StartAd
-        Entity.AdFinish = DateTimeOffset.Now.AddMinutes(2.0)
     End Sub
 
     Public Shared Async Function Create(quittable As Boolean, persister As IPersister) As Task(Of IWorldModel)
