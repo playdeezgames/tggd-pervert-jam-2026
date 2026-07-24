@@ -20,47 +20,7 @@ Friend Module ItemVerbExtensions
 
     Private ReadOnly performTable As New Dictionary(Of String, PerformHandler) From
         {
-            {VerbTypes.STOP_AND_SMELL, AddressOf HandleStopAndSmell},
-            {VerbTypes.REACH_IN, AddressOf HandleReachIn},
-            {VerbTypes.DRINK, AddressOf HandleDrink}
         }
-
-    Private Sub HandleDrink(verb As IVerb, item As IItem)
-        Dim world = verb.World
-        Dim avatar = world.Avatar
-        world.AddMessage($"{avatar.Name} consumes {item.Name}.")
-        world.AddMessage($"{avatar.Name}'s fatigue is completely gone!")
-        avatar.SetCounter(Counters.FATIGUE, avatar.GetCounterMinimum(Counters.FATIGUE))
-        item.Remove()
-        avatar.Inventory.CreateItem(ItemTypes.LITTER, "Litter", "This is litter. Don't drop it on the ground and leave it there, or yer a bad person!")
-    End Sub
-
-    Private Sub HandleReachIn(verb As IVerb, item As IItem)
-        Dim world = verb.World
-        Dim avatar = world.Avatar
-        Dim snax = item.GetCounter(Counters.SNAX)
-        If snax > 0 Then
-            item.ChangeCounter(Counters.SNAX, -snax)
-            avatar.ChangeCounter(Counters.SNAX, snax)
-            world.AddMessage($"{avatar.Name} finds {snax} snax!")
-            world.AddMessage($"{avatar.Name} has {avatar.GetSnax()} snax.")
-        Else
-            world.AddMessage($"{avatar.Name} finds nothing!")
-        End If
-    End Sub
-
-    Private Sub HandleStopAndSmell(verb As IVerb, item As IItem)
-        Dim world = verb.World
-        world.AddMessage("Hey! Speaking of Stopping and Smelling Flowers...")
-        world.AddMessage("There's a new game out! You should play it!")
-        world.AddMessage(
-            "Stop and Smell the Flowers, now on Steam",
-            New Dictionary(Of String, String) From
-            {
-                {"ELEMENT_TYPE", "LINK"},
-                {"URL", "https://store.steampowered.com/app/2578290/Stop_and_Smell_the_Flowers/"}
-            })
-    End Sub
 
     <Extension>
     Sub Perform(verb As IVerb, item As IItem)

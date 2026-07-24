@@ -30,7 +30,6 @@ Friend Module LocationEventExtensions
         Dim world = location.World
         Dim avatar = world.Avatar
         Dim feature = location.CreateFeature(FeatureTypes.CAR, "Car", "This is a car. Assuming you have keys to it and a learners permit, you can drive it. Yes, you can drive this with a learner's permit because it has a built-in AI driving instructor. Ain't the future grand?")
-        feature.CreateVerb(VerbTypes.DRIVE, "Drive", "You stick the key in, fire it up, and drive it.")
         world.AddMessage($"{avatar.Name} finds {feature.Name}.")
     End Sub
 
@@ -51,8 +50,6 @@ Friend Module LocationEventExtensions
         Dim avatar = world.Avatar
         Dim jools = RNG.RollDice("2d6")
         Dim feature = location.CreateFeature(FeatureTypes.DISHES, "Sink Full of Dirty Dishes", $"This is a sink full to the brim with dirty dishes. They didn't even rinse them. However, if you wash them, you will get {jools} jools.")
-        Dim verb = feature.CreateVerb(VerbTypes.WASH_DISHES, "Wash Dishes", "You wash the stinking, disgusting dishes, dry them, and put them away.")
-        verb.SetCounter(Counters.JOOLS, jools)
         world.AddMessage($"{avatar.Name} finds a {feature.Name}.")
     End Sub
 #End Region
@@ -61,7 +58,6 @@ Friend Module LocationEventExtensions
         Dim world = location.World
         Dim avatar = world.Avatar
         Dim feature = location.CreateFeature(FeatureTypes.RECYCLE_BIN, "Recycle Bin", "This is a recycle bin. You place litter in here, so that you are not a bad person.")
-        feature.CreateVerb(VerbTypes.RECYCLE_LITTER, "Recycle Litter", "You put litter into the bin and feel better about yerself.")
         world.AddMessage($"{avatar.Name} finds a {feature.Name}.")
     End Sub
 #End Region
@@ -70,7 +66,6 @@ Friend Module LocationEventExtensions
         Dim world = location.World
         Dim avatar = world.Avatar
         Dim feature = location.CreateFeature(FeatureTypes.KWIK_TRIP, "Kwik Trip", "This is a Kwik Trip, a convenience store common in the midwestern US that sell gasoline/petrol and more importantly has a fountain drink dispenser that dispenses Dr Pepper, the elixer of the gods.")
-        feature.CreateVerb(VerbTypes.BUY_DR_PEPPER, "Buy Dr Pepper", "You pour yerself a Dr Pepper from the fountain. You can barely contain yer exicitement!")
         world.AddMessage($"{avatar.Name} finds a {feature.Name}.")
     End Sub
 #End Region
@@ -81,7 +76,6 @@ Friend Module LocationEventExtensions
         Dim avatar = world.Avatar
         Dim catName = RNG.FromEnumerable(catNames)
         Dim feature = location.CreateFeature(FeatureTypes.CAT_SHRINE, "Cat Shrine", $"This is the shrine to a cat. Specifically, this is a shrine for a cat named `{catName}`.")
-        feature.CreateVerb(VerbTypes.PRAY, "Pray", "You stand reverently quiet for a moment, contemplating.")
         world.AddMessage($"{avatar.Name} finds a {feature.Name}.")
     End Sub
 #End Region
@@ -104,7 +98,6 @@ Friend Module LocationEventExtensions
     Private Sub InitializePkasticBag(item As IItem)
         item.SetTag(Tags.SUPPRESS_ABANDONED_HOUSE)
         item.InitializeCounter(Counters.SNAX, RNG.RollDice("2d6"), 0, 12)
-        item.CreateVerb(VerbTypes.REACH_IN, "Reach In...", "You steel yer nerves and reach in to the pkastic bag, knowing the developer to be a devious person.")
     End Sub
 
     Private Sub InitializeDestroyedPrinter(item As IItem)
@@ -120,7 +113,6 @@ Friend Module LocationEventExtensions
     End Sub
 
     Private Sub InitializeVendingMachine(feature As IFeature)
-        feature.CreateVerb(VerbTypes.BUY_SNAX, "Buy Snax(1 jools)", "You put the jools into the jools receptacle and press the `Snax` button....")
     End Sub
 #End Region
 #Region "Traehi"
@@ -132,7 +124,6 @@ Friend Module LocationEventExtensions
     End Sub
 
     Private Sub InitializeTraehi(character As ICharacter)
-        character.CreateVerb(VerbTypes.GIVE_FLOWER, "Give Flower", "You give them a flower. Isn't that nice?")
     End Sub
 #End Region
 
@@ -146,7 +137,6 @@ Friend Module LocationEventExtensions
 
     Private Sub InitializeFlowerPatch(feature As IFeature)
         feature.InitializeCounter(Counters.FLOWERS_REMAINING, RNG.RollDice("3d4"), 0, 12)
-        feature.CreateVerb(VerbTypes.PICK_FLOWER, "Pick a Flower", "You use your plant murdering hand to pluck a defenseless flower from the flower patch. You do not hear the wailing lament of the other flowers in response to the death of one of its brethren.")
     End Sub
 #End Region
 
