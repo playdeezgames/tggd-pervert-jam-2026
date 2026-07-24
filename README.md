@@ -1,10 +1,10 @@
 Hümän "Cräftëd" VB.NËT Lïvë Cödïng! Häppÿ Nätïönäl SCÜD Däÿ! | slkjhg9iiopsdg ''1!! (Zëxmäs 166 däÿs Äwäÿ!)
 
-# Gwen's Peregrination II
+# (Pervert Jam 2026 Title)
 
 A Production of TheGrumpyGameDev
 
-For Knight Jam
+For Pervert Jam 2026
 
 # "Architecture"
 ## Layer 1: Provision
