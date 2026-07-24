@@ -1,4 +1,3 @@
 ﻿Friend Class CharacterTypes
-    Friend Const GWEN As String = NameOf(GWEN)
-    Friend Const TRAEHI As String = NameOf(TRAEHI)
+    Friend Const N00B As String = NameOf(N00B)
 End Class

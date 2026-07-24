@@ -62,8 +62,6 @@ Public Class WorldModel
         Else
             Entity.AddMessage("Ad break is complete! You may return to yer metaphor!")
             Dim avatar = Entity.Avatar
-            Dim coupon = avatar.Inventory.CreateItem(ItemTypes.COUPON, "Coupon", "This is a coupon.")
-            Entity.AddMessage($"{avatar.Name} receives {coupon.Name}.")
             Entity.AdFinish = Nothing
         End If
     End Sub
