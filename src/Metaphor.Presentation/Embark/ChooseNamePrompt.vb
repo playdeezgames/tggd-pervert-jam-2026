@@ -4,6 +4,8 @@ Imports TGGD.Presentation
 Friend Class ChooseNamePrompt
     Inherits MetaphorDialog
 
+    Private Const DEFAULT_NAME = "Olen Kyrpa"
+
     Private Sub New(context As IDisplayContext, model As IWorldModel, previous As DialogSource)
         MyBase.New(context, model, previous)
     End Sub
@@ -13,10 +15,10 @@ Friend Class ChooseNamePrompt
     End Function
 
     Public Overrides Function Run() As IDialogPrompt
-        Return DialogPrompt.CreateStringPrompt("What is your name, ""Brave Adventurer""?", AddressOf ChooseName)
+        Return DialogPrompt.CreateStringPrompt("What is your name, PERVERT?", AddressOf ChooseName)
     End Function
 
     Private Function ChooseName(value As String) As IDialog
-        Return ValidateChosenName.Launch(Context, Model, Previous, value).Invoke()
+        Return ChoosePronounsPrompt.Launch(Context, Model, Previous, If(String.IsNullOrWhiteSpace(value), DEFAULT_NAME, value)).Invoke()
     End Function
 End Class

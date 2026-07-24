@@ -2,4 +2,5 @@
 Public Interface ICharacter
     Inherits IInventoriedEntity
     Property Location As ILocation
+    ReadOnly Property Pronouns As String
 End Interface

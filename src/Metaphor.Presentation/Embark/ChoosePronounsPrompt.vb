@@ -6,7 +6,6 @@ Friend Class ChoosePronounsPrompt
     Inherits MetaphorPickerMenu
 
     Private ReadOnly name As String
-    Friend Const VALID_PRONOUNS = "They/Them"
 
     Private Sub New(context As IDisplayContext, model As IWorldModel, previous As DialogSource, name As String)
         MyBase.New(context, model, previous)
@@ -25,18 +24,25 @@ Friend Class ChoosePronounsPrompt
                 Append(ChoosePronouns("He/Him")).
                 Append(ChoosePronouns("He/They")).
                 Append(ChoosePronouns("They/He")).
-                Append(ChoosePronouns(VALID_PRONOUNS)).
+                Append(ChoosePronouns("They/Them")).
                 Append(ChoosePronouns("They/She")).
                 Append(ChoosePronouns("She/They")).
                 Append(ChoosePronouns("She/Her")).
                 Append(ChoosePronouns("Any")).
-                Append(ChoosePronouns("Use Name Only"))
+                Append(ChoosePronouns("Use Name Only")).
+                Append(ChooseCustomPronouns("Custom..."))
         End Get
     End Property
 
     Private Function ChoosePronouns(pronouns As String) As LaunchDelegate
         Return Function(c, m, p)
-                   Return DialogChoice.CreateEnabled(pronouns, ValidateChosenPronouns.Launch(Context, Model, Previous, name, pronouns))
+                   Return DialogChoice.CreateEnabled(pronouns, EmbarkActivity.Launch(Context, Model, Previous, name, pronouns))
+               End Function
+    End Function
+
+    Private Function ChooseCustomPronouns(pronouns As String) As LaunchDelegate
+        Return Function(c, m, p)
+                   Return DialogChoice.CreateEnabled(pronouns, ChooseCustomPronounsPrompt.Launch(Context, Model, Previous, name))
                End Function
     End Function
 

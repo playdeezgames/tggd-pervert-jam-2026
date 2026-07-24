@@ -45,8 +45,4 @@ Friend Module CharacterExtensions
         world.AddMessage($"{character.Name}'s Status:")
         world.AddMessage(character.Flavor)
     End Sub
-    <Extension>
-    Friend Sub SetPronouns(character As ICharacter, pronouns As String)
-        character.SetMetadata(Metadatas.PRONOUNS, pronouns)
-    End Sub
 End Module

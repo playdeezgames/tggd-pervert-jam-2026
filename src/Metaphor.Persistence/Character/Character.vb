@@ -27,6 +27,12 @@ Friend Class Character
         End Get
     End Property
 
+    Public ReadOnly Property Pronouns As String Implements ICharacter.Pronouns
+        Get
+            Return Data.Pronouns
+        End Get
+    End Property
+
     Protected Overrides ReadOnly Property Data As CharacterData
         Get
             Return _data.Characters(EntityId)
