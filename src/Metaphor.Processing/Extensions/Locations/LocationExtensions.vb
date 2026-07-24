@@ -40,7 +40,6 @@ Friend Module LocationExtensions
         location.RemoveNonAvatarCharacters()
         location.RemoveAllFeatures()
         location.RemoveAllGroundItems()
-        location.ClearTag(Tags.SHORTCUT)
         location.GenerateEvent()
     End Sub
 End Module

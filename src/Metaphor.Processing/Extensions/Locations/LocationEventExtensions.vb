@@ -36,13 +36,6 @@ Friend Module LocationEventExtensions
     Private Sub SpawnCarKeys(location As ILocation)
         Dim world = location.World
         Dim avatar = world.Avatar
-        If Not avatar.Inventory.Items.Any(Function(x) x.HasTag(Tags.CAR_KEYS)) Then
-            Dim item = location.Inventory.CreateItem(ItemTypes.CAR_KEYS, "Car Keys", "These are car keys. They weren't where you'd thought they'd be!")
-            item.SetTag(Tags.CAR_KEYS)
-            world.AddMessage($"{avatar.Name} sees {item.Name} on the ground.")
-        Else
-            SpawnNothing(location)
-        End If
     End Sub
 #Region "Dishes"
     Private Sub SpawnDishes(location As ILocation)
@@ -83,10 +76,6 @@ Friend Module LocationEventExtensions
     Private Sub SpawnAbandonedHouse(location As ILocation)
         Dim world = location.World
         Dim avatar = world.Avatar
-        If avatar.Inventory.Items.Any(Function(x) x.HasTag(Tags.SUPPRESS_ABANDONED_HOUSE)) Then
-            SpawnNothing(location)
-            Return
-        End If
         Dim feature = location.CreateFeature(FeatureTypes.ABANDONED_HOUSE, "Abandoned House", "This house is abandoned. The lawn is overgrown. The doors have been ripped off of the hinges, and the windows are made of sheet goods.", AddressOf InitializeAbandonedHouse)
         world.AddMessage($"{avatar.Name} finds an {feature.Name}.")
     End Sub
@@ -96,12 +85,10 @@ Friend Module LocationEventExtensions
     End Sub
 
     Private Sub InitializePkasticBag(item As IItem)
-        item.SetTag(Tags.SUPPRESS_ABANDONED_HOUSE)
         item.InitializeCounter(Counters.SNAX, RNG.RollDice("2d6"), 0, 12)
     End Sub
 
     Private Sub InitializeDestroyedPrinter(item As IItem)
-        item.SetTag(Tags.SUPPRESS_ABANDONED_HOUSE)
     End Sub
 #End Region
 #Region "Vending machine"
@@ -144,7 +131,6 @@ Friend Module LocationEventExtensions
         Dim world = location.World
         Dim character = world.Avatar
         world.AddMessage($"{character.Name} discovers a potential shortcut!")
-        location.SetTag(Tags.SHORTCUT)
     End Sub
 
     Private Sub SpawnNothing(location As ILocation)

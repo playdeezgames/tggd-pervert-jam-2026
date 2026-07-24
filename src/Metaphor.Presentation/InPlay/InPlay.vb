@@ -16,12 +16,6 @@ Friend Class InPlay
         If Model.InAd Then
             Return AdPrompt.Launch(Context, Model, Previous).Invoke().Run()
         End If
-        If Model.Avatar.IsDone Then
-            Return DonePrompt.Launch(Context, Model, Previous).Invoke().Run()
-        End If
-        If Model.Avatar.Pace.IsChanging Then
-            Return ChangePacePrompt.Launch(Context, Model, Previous).Invoke().Run
-        End If
         Return NavigationMenu.Launch(Context, Model, Previous).Invoke().Run()
     End Function
 End Class

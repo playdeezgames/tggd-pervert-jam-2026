@@ -164,12 +164,7 @@ Friend Module CharacterExtensions
     <Extension>
     Friend Sub SetPace(character As ICharacter, pace As Integer)
         character.SetCounter(Counters.PACE, pace)
-        character.ClearTag(Tags.IS_CHANGING_PACE)
     End Sub
-    <Extension>
-    Friend Function IsJourneyComplete(character As ICharacter) As Boolean
-        Return character.HasTag(Tags.JOURNEY_COMPLETE)
-    End Function
     <Extension>
     Friend Sub EarnForagingExperience(character As ICharacter, xp As Integer)
         Dim world = character.World

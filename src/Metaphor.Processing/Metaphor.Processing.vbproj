@@ -19,4 +19,8 @@
     <ProjectReference Include="..\TGGD.Processing\TGGD.Processing.vbproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Model\Characters\Character\Pace\" />
+  </ItemGroup>
+
 </Project>
