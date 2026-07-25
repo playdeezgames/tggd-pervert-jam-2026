@@ -33,6 +33,15 @@ Friend Class Character
         End Get
     End Property
 
+    Public Property Ship As ILocation Implements ICharacter.Ship
+        Get
+            Return Persistence.Location.Create(World, _data, Data.ShipId)
+        End Get
+        Set(value As ILocation)
+            Data.ShipId = value?.EntityId
+        End Set
+    End Property
+
     Protected Overrides ReadOnly Property Data As CharacterData
         Get
             Return _data.Characters(EntityId)

@@ -20,7 +20,17 @@ Friend Module LocationVerbExtensions
 
     Private ReadOnly performTable As New Dictionary(Of String, PerformHandler) From
         {
+            {VerbTypes.SET_HEADING, AddressOf HandleSetHeading},
+            {VerbTypes.SET_SPEED, AddressOf HandleSetSpeed}
         }
+
+    Private Sub HandleSetSpeed(verb As IVerb, location As ILocation)
+        verb.World.Avatar.SetTags(Tags.SETTING_SPEED)
+    End Sub
+
+    Private Sub HandleSetHeading(verb As IVerb, location As ILocation)
+        verb.World.Avatar.SetTags(Tags.SETTING_HEADING)
+    End Sub
 
     <Extension>
     Sub Perform(verb As IVerb, location As ILocation)
