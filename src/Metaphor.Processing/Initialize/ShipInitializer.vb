@@ -11,6 +11,7 @@ Friend Module ShipInitializer
                    ship.InitializeDimension(Dimensions.LATITUDE, context.WorldHeight / 2, 0.0, context.WorldHeight)
                    ship.CreateVerb(VerbTypes.SET_HEADING, "Set Heading", "You use the helm to set a new heading.")
                    ship.CreateVerb(VerbTypes.SET_SPEED, "Set Speed", "You use the sails to set a new speed.")
+                   ship.CreateVerb(VerbTypes.MOVE, "Move", "Steady as she goes.")
                    ship.CreateCharacter(CharacterTypes.N00B, context.ChosenName, context.ChosenPronouns, $"{context.ChosenName}'s pronouns are {context.ChosenPronouns}.", InitializeAvatar(context))
                End Sub
     End Function

@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\Locations\" />
     <Folder Include="Model\Characters\Character\Pace\" />
   </ItemGroup>
 
