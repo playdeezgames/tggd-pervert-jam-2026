@@ -2,7 +2,7 @@
 Imports TGGD.Presentation
 
 Friend Class LocationVerbActivity
-    Inherits MetaphorPickerMenu
+    Inherits MetaphorDialog
 
     Private ReadOnly verbModel As IVerbModel
 
@@ -11,27 +11,12 @@ Friend Class LocationVerbActivity
         Me.verbModel = verbModel
     End Sub
 
-    Public Overrides ReadOnly Property PromptText As String
-        Get
-            Return String.Empty
-        End Get
-    End Property
-
-    Protected Overrides ReadOnly Property Launchers As IEnumerable(Of LaunchDelegate)
-        Get
-            Return Enumerable.Empty(Of LaunchDelegate).
-                Append(AddressOf ChooseOk)
-        End Get
-    End Property
-
-    Private Function ChooseOk(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As IDialogChoice
-        Return DialogChoice.CreateEnabled("Ok", InPlay.Launch(context, model, previous))
+    Friend Shared Function Launch(c As IDisplayContext, m As IWorldModel, p As DialogSource, verbModel As IVerbModel) As DialogSource
+        Return Function() New LocationVerbActivity(c, m, p, verbModel)
     End Function
 
-    Friend Shared Function Launch(c As IDisplayContext, m As IWorldModel, p As DialogSource, verbModel As IVerbModel) As DialogSource
-        Return Function()
-                   verbModel.Perform()
-                   Return New LocationVerbActivity(c, m, p, verbModel)
-               End Function
+    Public Overrides Function Run() As IDialogPrompt
+        verbModel.Perform()
+        Return InPlay.Launch(Context, Model, Previous).Invoke().Run()
     End Function
 End Class

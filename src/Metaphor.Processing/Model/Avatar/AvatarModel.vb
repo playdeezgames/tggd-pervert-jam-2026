@@ -58,11 +58,13 @@ Friend Class AvatarModel
     Public Sub SetHeading(heading As Double) Implements IAvatarModel.SetHeading
         avatar.Ship.SetHeading(heading)
         avatar.ClearTag(Tags.SETTING_HEADING)
+        avatar.Look()
     End Sub
 
     Public Sub SetSpeed(speed As Double) Implements IAvatarModel.SetSpeed
         avatar.Ship.SetSpeed(speed)
         avatar.ClearTag(Tags.SETTING_SPEED)
+        avatar.Look()
     End Sub
 
     Friend Shared Function Create(avatar As ICharacter) As IAvatarModel
