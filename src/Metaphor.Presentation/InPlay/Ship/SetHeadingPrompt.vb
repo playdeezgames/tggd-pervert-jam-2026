@@ -13,11 +13,11 @@ Friend Class SetHeadingPrompt
     End Function
 
     Public Overrides Function Run() As IDialogPrompt
-        Return DialogPrompt.CreateDoublePrompt($"New Heading(0-360, currently {Model.Avatar.CurrentHeading:f2})?", AddressOf ChooseNewHeading)
+        Return DialogPrompt.CreateDoublePrompt($"New Heading(0-360, currently {Model.Avatar.Ship.CurrentHeading:f2})?", AddressOf ChooseNewHeading)
     End Function
 
     Private Function ChooseNewHeading(value As Double) As IDialog
-        Model.Avatar.SetHeading(value)
+        Model.Avatar.Ship.SetHeading(value)
         Return InPlay.Launch(Context, Model, Previous).Invoke()
     End Function
 End Class

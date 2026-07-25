@@ -16,10 +16,10 @@ Friend Class InPlay
         If Model.Ad.InProgress Then
             Return AdPrompt.Launch(Context, Model, Previous).Invoke().Run()
         End If
-        If Model.Avatar.IsSettingHeading Then
+        If Model.Avatar.Ship.IsSettingHeading Then
             Return SetHeadingPrompt.Launch(Context, Model, Previous).Invoke().Run()
         End If
-        If Model.Avatar.IsSettingSpeed Then
+        If Model.Avatar.Ship.IsSettingSpeed Then
             Return SetSpeedPrompt.Launch(Context, Model, Previous).Invoke().Run()
         End If
         Return NavigationMenu.Launch(Context, Model, Previous).Invoke().Run()

@@ -52,6 +52,6 @@ Friend Class SetSpeedPrompt
     End Function
 
     Private Function ChooseNeverMind(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As IDialogChoice
-        Return DialogChoice.CreateEnabled("Never Mind", SetSpeedActivity.Launch(context, model, previous, model.Avatar.CurrentSpeed))
+        Return DialogChoice.CreateEnabled("Never Mind", SetSpeedActivity.Launch(context, model, previous, model.Avatar.Ship.CurrentSpeed))
     End Function
 End Class

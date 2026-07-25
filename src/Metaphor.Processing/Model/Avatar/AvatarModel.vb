@@ -21,27 +21,9 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property IsSettingHeading As Boolean Implements IAvatarModel.IsSettingHeading
+    Public ReadOnly Property Ship As IShipModel Implements IAvatarModel.Ship
         Get
-            Return avatar.HasTag(Tags.SETTING_HEADING)
-        End Get
-    End Property
-
-    Public ReadOnly Property CurrentHeading As Double Implements IAvatarModel.CurrentHeading
-        Get
-            Return avatar.Ship.GetHeading()
-        End Get
-    End Property
-
-    Public ReadOnly Property IsSettingSpeed As Boolean Implements IAvatarModel.IsSettingSpeed
-        Get
-            Return avatar.HasTag(Tags.SETTING_SPEED)
-        End Get
-    End Property
-
-    Public ReadOnly Property CurrentSpeed As Double Implements IAvatarModel.CurrentSpeed
-        Get
-            Return avatar.Ship.GetSpeed()
+            Return ShipModel.Create(avatar.Ship)
         End Get
     End Property
 
@@ -52,18 +34,6 @@ Friend Class AvatarModel
 
     Public Sub Look() Implements IAvatarModel.Look
         avatar.World.ClearMessages()
-        avatar.Look()
-    End Sub
-
-    Public Sub SetHeading(heading As Double) Implements IAvatarModel.SetHeading
-        avatar.Ship.SetHeading(heading)
-        avatar.ClearTag(Tags.SETTING_HEADING)
-        avatar.Look()
-    End Sub
-
-    Public Sub SetSpeed(speed As Double) Implements IAvatarModel.SetSpeed
-        avatar.Ship.SetSpeed(speed)
-        avatar.ClearTag(Tags.SETTING_SPEED)
         avatar.Look()
     End Sub
 

@@ -25,11 +25,11 @@ Friend Module LocationVerbExtensions
         }
 
     Private Sub HandleSetSpeed(verb As IVerb, location As ILocation)
-        verb.World.Avatar.SetTags(Tags.SETTING_SPEED)
+        verb.World.Avatar.Ship.SetTags(Tags.SETTING_SPEED)
     End Sub
 
     Private Sub HandleSetHeading(verb As IVerb, location As ILocation)
-        verb.World.Avatar.SetTags(Tags.SETTING_HEADING)
+        verb.World.Avatar.Ship.SetTags(Tags.SETTING_HEADING)
     End Sub
 
     <Extension>
