@@ -1,3 +1,3 @@
 ﻿Friend Module LocationTypes
-    Friend Const BLUE_ROOM As String = NameOf(BLUE_ROOM)
+    Friend Const SHIP As String = NameOf(SHIP)
 End Module

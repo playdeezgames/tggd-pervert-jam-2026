@@ -13,6 +13,18 @@ Friend Class InitializationContext
 
     Public ReadOnly Property ChosenPronouns As String Implements IInitializationContext.ChosenPronouns
 
+    Public ReadOnly Property WorldWidth As Double Implements IInitializationContext.WorldWidth
+        Get
+            Return WORLD_WIDTH
+        End Get
+    End Property
+
+    Public ReadOnly Property WorldHeight As Double Implements IInitializationContext.WorldHeight
+        Get
+            Return WORLD_HEIGHT
+        End Get
+    End Property
+
     Friend Shared Function Create(chosenName As String, chosenPronouns As String) As IInitializationContext
         Return New InitializationContext(chosenName, chosenPronouns)
     End Function

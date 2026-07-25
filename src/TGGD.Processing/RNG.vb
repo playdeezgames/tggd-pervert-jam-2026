@@ -30,6 +30,9 @@ Public Module RNG
     Function FromRange(minimum As Integer, maximum As Integer) As Integer
         Return random.Next(maximum - minimum + 1) + minimum
     End Function
+    Function FromRange(minimum As Double, maximum As Double) As Double
+        Return minimum + random.NextDouble() * (maximum - minimum)
+    End Function
     Function RollXDY(dieCount As Integer, dieSize As Integer) As Integer
         Dim total = Zero
         While dieCount > Zero

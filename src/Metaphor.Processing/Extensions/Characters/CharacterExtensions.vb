@@ -11,6 +11,7 @@ Friend Module CharacterExtensions
         Dim location = character.Location
         Dim world = location.World
         world.AddMessage(location.Flavor)
+        location.Describe()
         ShowOtherCharacters(character)
         ShowFeatures(character)
         If location.Inventory.HasItems Then
