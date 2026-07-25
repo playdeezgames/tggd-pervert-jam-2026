@@ -4,7 +4,7 @@ Imports TGGD.Processing
 Friend Module ShipInitializer
     Friend Function Initialize(context As IInitializationContext) As Persistence.LocationInitializer
         Return Sub(ship)
-                   context.Location = ship
+                   context.Ship = ship
                    ship.InitializeDimension(Dimensions.HEADING, RNG.FromRange(HEADING_MINIMUM, HEADING_MAXIMUM), HEADING_MINIMUM, HEADING_MAXIMUM)
                    ship.InitializeDimension(Dimensions.SPEED, SPEED_AHEAD_TWO_THIRDS, SPEED_FULL_STOP, SPEED_AHEAD_FLANK)
                    ship.InitializeDimension(Dimensions.LONGITUDE, context.WorldWidth / 2, 0.0, context.WorldWidth)

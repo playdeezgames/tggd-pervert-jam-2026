@@ -9,7 +9,7 @@ Friend Class InitializationContext
 
     Public ReadOnly Property ChosenName As String Implements IInitializationContext.ChosenName
 
-    Public Property Location As ILocation Implements IInitializationContext.Location
+    Public Property Ship As ILocation Implements IInitializationContext.Ship
 
     Public ReadOnly Property ChosenPronouns As String Implements IInitializationContext.ChosenPronouns
 
@@ -22,6 +22,18 @@ Friend Class InitializationContext
     Public ReadOnly Property WorldHeight As Double Implements IInitializationContext.WorldHeight
         Get
             Return WORLD_HEIGHT
+        End Get
+    End Property
+
+    Public ReadOnly Property IslandGenerationAttempts As Integer Implements IInitializationContext.IslandGenerationAttempts
+        Get
+            Return ISLAND_GENERATION_ATTEMPTS
+        End Get
+    End Property
+
+    Public ReadOnly Property MinimumIslandDistance As Double Implements IInitializationContext.MinimumIslandDistance
+        Get
+            Return MINIMUM_ISLAND_DISTANCE
         End Get
     End Property
 

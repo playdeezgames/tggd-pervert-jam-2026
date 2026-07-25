@@ -9,4 +9,6 @@
     Friend Const SPEED_AHEAD_FLANK = 1.0
     Friend Const WORLD_WIDTH = 100.0
     Friend Const WORLD_HEIGHT = 100.0
+    Friend Const ISLAND_GENERATION_ATTEMPTS = 500
+    Friend Const MINIMUM_ISLAND_DISTANCE = 10.0
 End Module
