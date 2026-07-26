@@ -2,4 +2,5 @@
 Public Interface IFeature
     Inherits IInventoriedEntity
     ReadOnly Property Location As ILocation
+    Property Destination As ILocation
 End Interface

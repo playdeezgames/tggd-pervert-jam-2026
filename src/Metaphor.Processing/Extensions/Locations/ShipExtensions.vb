@@ -13,6 +13,7 @@ Friend Module ShipExtensions
     End Sub
 
     Private Sub ShowVisibleIslands(world As IWorld, ship As ILocation)
+        If ship.IsMoored Then Return
         Dim visibility = ship.GetVisibility()
         Dim visibleIslands = world.Islands.Where(Function(x) x.IsVisibleTo(ship)).OrderBy(Function(x) x.DistanceTo(ship))
         If visibleIslands.Any Then
@@ -55,5 +56,8 @@ Friend Module ShipExtensions
     Friend Sub SetSpeed(ship As ILocation, speed As Double)
         ship.SetDimension(Dimensions.SPEED, speed)
     End Sub
-
+    <Extension>
+    Friend Function IsMoored(ship As ILocation) As Boolean
+        Return ship.Features.Any(Function(x) x.EntityType = FeatureTypes.MOORINGS)
+    End Function
 End Module

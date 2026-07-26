@@ -20,6 +20,15 @@ Friend Class Feature
         End Get
     End Property
 
+    Public Property Destination As ILocation Implements IFeature.Destination
+        Get
+            Return Persistence.Location.Create(World, _data, Data.DestinationId)
+        End Get
+        Set(value As ILocation)
+            Data.DestinationId = value?.EntityId
+        End Set
+    End Property
+
     Protected Overrides ReadOnly Property Data As FeatureData
         Get
             Return _data.Features(EntityId)

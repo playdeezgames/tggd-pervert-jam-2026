@@ -7,11 +7,26 @@ Friend Module LocationVerbExtensions
 
     Private ReadOnly canPerformTable As New Dictionary(Of String, CanPerformHandler) From
         {
-            {VerbTypes.MOVE, AddressOf CanMove}
+            {VerbTypes.MOVE, AddressOf CanMove},
+            {VerbTypes.DOCK, AddressOf CanDock},
+            {VerbTypes.SET_HEADING, AddressOf CanSetHeading},
+            {VerbTypes.SET_SPEED, AddressOf CanSetSpeed}
         }
 
+    Private Function CanSetSpeed(verb As IVerb, ship As ILocation) As Boolean
+        Return Not ship.IsMoored
+    End Function
+
+    Private Function CanSetHeading(verb As IVerb, ship As ILocation) As Boolean
+        Return Not ship.IsMoored
+    End Function
+
+    Private Function CanDock(verb As IVerb, ship As ILocation) As Boolean
+        Return Not ship.IsMoored AndAlso verb.World.Islands.Any(Function(x) x.DistanceTo(ship) <= DOCKING_DISTANCE)
+    End Function
+
     Private Function CanMove(verb As IVerb, ship As ILocation) As Boolean
-        Return ship.GetSpeed() > SPEED_FULL_STOP
+        Return Not ship.IsMoored AndAlso ship.GetSpeed() > SPEED_FULL_STOP
     End Function
 
     <Extension>
@@ -27,8 +42,15 @@ Friend Module LocationVerbExtensions
         {
             {VerbTypes.SET_HEADING, AddressOf HandleSetHeading},
             {VerbTypes.SET_SPEED, AddressOf HandleSetSpeed},
-            {VerbTypes.MOVE, AddressOf HandleMove}
+            {VerbTypes.MOVE, AddressOf HandleMove},
+            {VerbTypes.DOCK, AddressOf HandleDock}
         }
+
+    Private Sub HandleDock(verb As IVerb, ship As ILocation)
+        Dim island = verb.World.Islands.Single(Function(x) x.DistanceTo(ship) <= DOCKING_DISTANCE)
+        ship.MoorTo(island)
+        island.MoorTo(ship)
+    End Sub
 
     Private Sub HandleMove(verb As IVerb, location As ILocation)
         Dim world = verb.World

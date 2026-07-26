@@ -11,4 +11,9 @@ Friend Module LocationExtensions
                 Throw New NotImplementedException
         End Select
     End Sub
+    <Extension>
+    Friend Sub MoorTo(fromLocation As ILocation, toLocation As ILocation)
+        Dim moorings = fromLocation.CreateFeature(FeatureTypes.MOORINGS, $"Moorings to {toLocation.Name}", $"Lines securely fasten {fromLocation.Name} to {toLocation.Name}.")
+        moorings.Destination = toLocation
+    End Sub
 End Module
