@@ -63,6 +63,7 @@ Friend Module LocationVerbExtensions
         ship.MoorTo(island)
         island.MoorTo(ship)
         island.SetTag(Tags.KNOWN)
+        verb.World.Avatar.AddKnownIsland(island)
     End Sub
 
     Private Sub HandleMove(verb As IVerb, location As ILocation)
