@@ -7,7 +7,13 @@ Friend Module CharacterVerbExtensions
 
     Private ReadOnly canPerformTable As New Dictionary(Of String, CanPerformHandler) From
         {
+            {VerbTypes.HEAD_FOR_KNOWN_ISLAND, AddressOf CanHeadForKnownIsland}
         }
+
+    Private Function CanHeadForKnownIsland(verb As IVerb, character As ICharacter) As Boolean
+        Dim avatar = verb.World.Avatar
+        Return Not avatar.Ship.IsMoored AndAlso avatar.KnownIslands.Any
+    End Function
 
     <Extension>
     Friend Function CanPerform(verb As IVerb, character As ICharacter) As Boolean
@@ -20,7 +26,12 @@ Friend Module CharacterVerbExtensions
 
     Private ReadOnly performTable As New Dictionary(Of String, PerformHandler) From
         {
+            {VerbTypes.HEAD_FOR_KNOWN_ISLAND, AddressOf HandleHeadForKnownIsland}
         }
+
+    Private Sub HandleHeadForKnownIsland(verb As IVerb, character As ICharacter)
+        character.SetTag(Tags.CHOOSING_KNOWN_ISLAND)
+    End Sub
 
     <Extension>
     Sub Perform(verb As IVerb, character As ICharacter)

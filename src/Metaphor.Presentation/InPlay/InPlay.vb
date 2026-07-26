@@ -16,6 +16,9 @@ Friend Class InPlay
         If Model.Ad.InProgress Then
             Return AdPrompt.Launch(Context, Model, Previous).Invoke().Run()
         End If
+        If Model.Avatar.IsChoosingKnownIsland Then
+            Return ChooseKnownIslandPrompt.Launch(Context, Model, Previous).Invoke().Run()
+        End If
         If Model.Avatar.Ship.IsSettingHeading Then
             Return SetHeadingPrompt.Launch(Context, Model, Previous).Invoke().Run()
         End If

@@ -20,7 +20,7 @@ Friend Class ChoosePronounsPrompt
 
     Protected Overrides ReadOnly Property Launchers As IEnumerable(Of LaunchDelegate)
         Get
-            Return Enumerable.Empty(Of LaunchDelegate).
+            Dim choices = Enumerable.Empty(Of LaunchDelegate).
                 Append(ChoosePronouns("He/Him")).
                 Append(ChoosePronouns("He/They")).
                 Append(ChoosePronouns("They/He")).
@@ -30,6 +30,8 @@ Friend Class ChoosePronounsPrompt
                 Append(ChoosePronouns("She/Her")).
                 Append(ChoosePronouns("Any")).
                 Append(ChoosePronouns("Use Name Only")).
+                OrderBy(Function(x) Guid.NewGuid)
+            Return choices.
                 Append(ChooseCustomPronouns("Custom..."))
         End Get
     End Property

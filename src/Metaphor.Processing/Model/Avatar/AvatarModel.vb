@@ -27,6 +27,18 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property IsChoosingKnownIsland As Boolean Implements IAvatarModel.IsChoosingKnownIsland
+        Get
+            Return avatar.HasTag(Tags.CHOOSING_KNOWN_ISLAND)
+        End Get
+    End Property
+
+    Public ReadOnly Property KnownIslands As IEnumerable(Of IIslandModel) Implements IAvatarModel.KnownIslands
+        Get
+            Return avatar.KnownIslands.Select(AddressOf IslandModel.Create)
+        End Get
+    End Property
+
     Public Sub ShowStatus() Implements IAvatarModel.ShowStatus
         avatar.World.ClearMessages()
         avatar.ShowStatus()
@@ -35,6 +47,13 @@ Friend Class AvatarModel
     Public Sub Look() Implements IAvatarModel.Look
         avatar.World.ClearMessages()
         avatar.Look()
+    End Sub
+
+    Public Sub ChooseKnownIsland(islandModel As IIslandModel) Implements IAvatarModel.ChooseKnownIsland
+        avatar.ClearTag(Tags.CHOOSING_KNOWN_ISLAND)
+        If islandModel IsNot Nothing Then
+            islandModel.SetHeadingFor()
+        End If
     End Sub
 
     Friend Shared Function Create(avatar As ICharacter) As IAvatarModel
