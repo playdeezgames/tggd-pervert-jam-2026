@@ -19,4 +19,8 @@ Friend Module IslandExtensions
         Dim heading = Math.Atan2(deltaY, deltaX) * 360.0 / Math.PI / 2
         Return If(heading < 0.0, heading + 360.0, heading)
     End Function
+    <Extension>
+    Function GetIslandName(island As ILocation) As String
+        Return If(island.HasTag(Tags.KNOWN), island.Name, "UNKNOWN ISLAND")
+    End Function
 End Module

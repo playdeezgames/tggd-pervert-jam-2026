@@ -18,7 +18,7 @@ Friend Module ShipExtensions
         If visibleIslands.Any Then
             world.AddMessage("Visible Islands:")
             For Each visibleIsland In visibleIslands
-                world.AddMessage($"- {visibleIsland.Name}(Distance: {visibleIsland.DistanceTo(ship):f2}, Heading: {ship.HeadingTo(visibleIsland):f2})")
+                world.AddMessage($"- {visibleIsland.GetIslandName()}(Distance: {visibleIsland.DistanceTo(ship):f2}, Heading: {ship.HeadingTo(visibleIsland):f2})")
             Next
         End If
     End Sub

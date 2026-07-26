@@ -17,6 +17,7 @@ Friend Class NavigationMenu
     Protected Overrides ReadOnly Property Launchers As IEnumerable(Of LaunchDelegate)
         Get
             Return Enumerable.Empty(Of LaunchDelegate).
+                Concat(Model.Location.Verbs.Select(AddressOf ChooseLocationVerb)).
                 Concat(Model.Avatar.Verbs.Select(AddressOf ChooseAvatarVerb)).
                 Append(AddressOf ChooseStatus).
                 Append(AddressOf ChooseGround).
@@ -24,7 +25,6 @@ Friend Class NavigationMenu
                 Append(AddressOf ChooseCharacters).
                 Append(AddressOf ChooseFeatures).
                 Append(AddressOf ChooseLook).
-                Concat(Model.Location.Verbs.Select(AddressOf ChooseLocationVerb)).
                 Append(AddressOf ChooseWatchAd).
                 Append(AddressOf ChooseGameMenu)
         End Get
