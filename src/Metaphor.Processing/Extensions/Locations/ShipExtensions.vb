@@ -5,8 +5,6 @@ Friend Module ShipExtensions
 
     Friend Sub DescribeShip(ship As ILocation)
         Dim world = ship.World
-        world.AddMessage($"Logitude: {ship.GetLongitude():f2}")
-        world.AddMessage($"Latitude: {ship.GetLatitude():f2}")
         world.AddMessage($"Heading: {ship.GetHeading():f2}")
         world.AddMessage($"Speed: {ship.GetSpeed():f2}")
         ShowVisibleIslands(world, ship)

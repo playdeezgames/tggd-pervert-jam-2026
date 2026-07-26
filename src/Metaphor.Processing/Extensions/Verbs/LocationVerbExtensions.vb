@@ -10,8 +10,13 @@ Friend Module LocationVerbExtensions
             {VerbTypes.MOVE, AddressOf CanMove},
             {VerbTypes.DOCK, AddressOf CanDock},
             {VerbTypes.SET_HEADING, AddressOf CanSetHeading},
-            {VerbTypes.SET_SPEED, AddressOf CanSetSpeed}
+            {VerbTypes.SET_SPEED, AddressOf CanSetSpeed},
+            {VerbTypes.UNDOCK, AddressOf CanUndock}
         }
+
+    Private Function CanUndock(verb As IVerb, ship As ILocation) As Boolean
+        Return ship.IsMoored
+    End Function
 
     Private Function CanSetSpeed(verb As IVerb, ship As ILocation) As Boolean
         Return Not ship.IsMoored
@@ -43,13 +48,21 @@ Friend Module LocationVerbExtensions
             {VerbTypes.SET_HEADING, AddressOf HandleSetHeading},
             {VerbTypes.SET_SPEED, AddressOf HandleSetSpeed},
             {VerbTypes.MOVE, AddressOf HandleMove},
-            {VerbTypes.DOCK, AddressOf HandleDock}
+            {VerbTypes.DOCK, AddressOf HandleDock},
+            {VerbTypes.UNDOCK, AddressOf HandleUndock}
         }
+
+    Private Sub HandleUndock(verb As IVerb, ship As ILocation)
+        Dim island = ship.Features.Single(Function(x) x.EntityType = FeatureTypes.MOORINGS).Destination
+        island.RemoveMoorings()
+        ship.RemoveMoorings()
+    End Sub
 
     Private Sub HandleDock(verb As IVerb, ship As ILocation)
         Dim island = verb.World.Islands.Single(Function(x) x.DistanceTo(ship) <= DOCKING_DISTANCE)
         ship.MoorTo(island)
         island.MoorTo(ship)
+        island.SetTag(Tags.KNOWN)
     End Sub
 
     Private Sub HandleMove(verb As IVerb, location As ILocation)

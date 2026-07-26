@@ -16,4 +16,8 @@ Friend Module LocationExtensions
         Dim moorings = fromLocation.CreateFeature(FeatureTypes.MOORINGS, $"Moorings to {toLocation.Name}", $"Lines securely fasten {fromLocation.Name} to {toLocation.Name}.")
         moorings.Destination = toLocation
     End Sub
+    <Extension>
+    Friend Sub RemoveMoorings(location As ILocation)
+        location.Features.Single(Function(x) x.EntityType = FeatureTypes.MOORINGS).Remove()
+    End Sub
 End Module
