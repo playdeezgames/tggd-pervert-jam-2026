@@ -23,4 +23,8 @@ Friend Module EntityExtensions
         entity.SetDimensionMinimum(dimensionId, minimum)
         entity.SetDimension(dimensionId, value)
     End Sub
+    <Extension>
+    Friend Function GetVisibility(entity As IMetaphorEntity) As Double
+        Return entity.GetDimension(Dimensions.VISIBILITY)
+    End Function
 End Module

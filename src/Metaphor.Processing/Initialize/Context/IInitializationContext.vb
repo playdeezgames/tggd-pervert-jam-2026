@@ -8,4 +8,5 @@ Friend Interface IInitializationContext
     Property Ship As ILocation
     ReadOnly Property IslandGenerationAttempts As Integer
     ReadOnly Property MinimumIslandDistance As Double
+    Function GenerateName() As String
 End Interface

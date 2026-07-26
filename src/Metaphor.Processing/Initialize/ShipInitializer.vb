@@ -21,6 +21,7 @@ Friend Module ShipInitializer
                    character.World.Avatar = character
                    character.Ship = character.Location
                    character.InitializeCounter(Counters.FLESH_GRAMS, 454, 0, 454)
+                   character.SetDimension(Dimensions.VISIBILITY, 10.0)
                End Sub
     End Function
 End Module

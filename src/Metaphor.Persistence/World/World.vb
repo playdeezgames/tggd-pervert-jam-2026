@@ -23,6 +23,7 @@ Public Class World
         Data.Features.Clear()
         Data.Verbs.Clear()
         Data.AdFinishes = Nothing
+        Data.IslandIds.Clear()
     End Sub
 
     Protected Overrides ReadOnly Property Data As WorldData
@@ -51,6 +52,12 @@ Public Class World
         Set(value As DateTimeOffset?)
             Data.AdFinishes = value
         End Set
+    End Property
+
+    Public ReadOnly Property Islands As IEnumerable(Of ILocation) Implements IWorld.Islands
+        Get
+            Return Data.IslandIds.Select(Function(x) Location.Create(Me, Data, x))
+        End Get
     End Property
 
     Private ReadOnly persister As IPersister
@@ -96,4 +103,8 @@ Public Class World
         initializer?.Invoke(result)
         Return result
     End Function
+
+    Public Sub AddIsland(island As ILocation) Implements IWorld.AddIsland
+        Data.IslandIds.Add(island.EntityId)
+    End Sub
 End Class

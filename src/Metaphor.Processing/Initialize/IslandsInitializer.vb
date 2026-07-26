@@ -4,17 +4,37 @@ Imports TGGD.Processing
 Friend Module IslandsInitializer
     Friend Sub Initialize(world As IWorld, context As IInitializationContext)
         Dim islandCoordinates = GenerateCoordinates(context)
-        'TODO: generate names
-        'TODO: generate visibility
-        'TODO: make location
+        Dim islandNames = GenerateNames(context, islandCoordinates.Count)
+        Do While islandCoordinates.Count <> 0
+            Dim name = islandNames.Dequeue
+            Dim coordinate = islandCoordinates.Dequeue
+            Dim island = world.CreateLocation(LocationTypes.ISLAND, name, $"This island is called `{name}`.", InitializeIsland(coordinate))
+            world.AddIsland(island)
+        Loop
     End Sub
 
-    Private Function GenerateCoordinates(context As IInitializationContext) As IEnumerable(Of (Longitude As Double, Latitude As Double))
+    Private Function InitializeIsland(coordinate As (Longitude As Double, Latitude As Double)) As LocationInitializer
+        Return Sub(island)
+                   island.SetCounter(Dimensions.VISIBILITY, RNG.RollDice("3d8"))
+                   island.SetDimension(Dimensions.LONGITUDE, coordinate.Longitude)
+                   island.SetDimension(Dimensions.LATITUDE, coordinate.Latitude)
+               End Sub
+    End Function
+
+    Private Function GenerateNames(context As IInitializationContext, count As Integer) As Queue(Of String)
+        Dim result As New HashSet(Of String)
+        While result.Count < count
+            result.Add(context.GenerateName())
+        End While
+        Return New Queue(Of String)(result)
+    End Function
+
+    Private Function GenerateCoordinates(context As IInitializationContext) As Queue(Of (Longitude As Double, Latitude As Double))
         Dim result As New List(Of (Longitude As Double, Latitude As Double))
         Do Until Not GenerateCoordinate(result, context, 0)
 
         Loop
-        Return result
+        Return New Queue(Of (Longitude As Double, Latitude As Double))(result)
     End Function
 
     Private Function GenerateCoordinate(
