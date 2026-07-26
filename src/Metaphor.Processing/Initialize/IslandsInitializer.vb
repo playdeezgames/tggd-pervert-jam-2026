@@ -15,7 +15,7 @@ Friend Module IslandsInitializer
 
     Private Function InitializeIsland(coordinate As (Longitude As Double, Latitude As Double)) As LocationInitializer
         Return Sub(island)
-                   island.SetCounter(Dimensions.VISIBILITY, RNG.RollDice("3d8"))
+                   island.SetDimension(Dimensions.VISIBILITY, RNG.RollDice("3d8"))
                    island.SetDimension(Dimensions.LONGITUDE, coordinate.Longitude)
                    island.SetDimension(Dimensions.LATITUDE, coordinate.Latitude)
                End Sub

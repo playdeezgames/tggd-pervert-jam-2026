@@ -9,6 +9,7 @@ Friend Module ShipInitializer
                    ship.InitializeDimension(Dimensions.SPEED, SPEED_AHEAD_TWO_THIRDS, SPEED_FULL_STOP, SPEED_AHEAD_FLANK)
                    ship.InitializeDimension(Dimensions.LONGITUDE, context.WorldWidth / 2, 0.0, context.WorldWidth)
                    ship.InitializeDimension(Dimensions.LATITUDE, context.WorldHeight / 2, 0.0, context.WorldHeight)
+                   ship.SetDimension(Dimensions.VISIBILITY, 10.0)
                    ship.CreateVerb(VerbTypes.SET_HEADING, "Set Heading", "You use the helm to set a new heading.")
                    ship.CreateVerb(VerbTypes.SET_SPEED, "Set Speed", "You use the sails to set a new speed.")
                    ship.CreateVerb(VerbTypes.MOVE, "Move", "Steady as she goes.")
@@ -21,7 +22,6 @@ Friend Module ShipInitializer
                    character.World.Avatar = character
                    character.Ship = character.Location
                    character.InitializeCounter(Counters.FLESH_GRAMS, 454, 0, 454)
-                   character.SetDimension(Dimensions.VISIBILITY, 10.0)
                End Sub
     End Function
 End Module

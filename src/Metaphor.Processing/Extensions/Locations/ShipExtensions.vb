@@ -9,7 +9,20 @@ Friend Module ShipExtensions
         world.AddMessage($"Latitude: {ship.GetLatitude():f2}")
         world.AddMessage($"Heading: {ship.GetHeading():f2}")
         world.AddMessage($"Speed: {ship.GetSpeed():f2}")
+        ShowVisibleIslands(world, ship)
     End Sub
+
+    Private Sub ShowVisibleIslands(world As IWorld, ship As ILocation)
+        Dim visibility = ship.GetVisibility()
+        Dim visibleIslands = world.Islands.Where(Function(x) x.IsVisibleTo(ship)).OrderBy(Function(x) x.DistanceTo(ship))
+        If visibleIslands.Any Then
+            world.AddMessage("Visible Islands:")
+            For Each visibleIsland In visibleIslands
+                world.AddMessage($"- {visibleIsland.Name}(Distance: {visibleIsland.DistanceTo(ship):f2}, Heading: {ship.HeadingTo(visibleIsland):f2})")
+            Next
+        End If
+    End Sub
+
     <Extension>
     Friend Function GetLongitude(ship As ILocation) As Double
         Return ship.GetDimension(Dimensions.LONGITUDE)
