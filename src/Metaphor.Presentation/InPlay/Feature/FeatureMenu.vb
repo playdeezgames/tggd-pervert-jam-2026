@@ -43,11 +43,11 @@ Friend Class FeatureMenu
                        featureModel.Examine()
                        Return New FeatureMenu(c, m, p, featureModel)
                    End If
-                   Return FeaturesMenu.Launch(c, m, p).Invoke()
+                   Return InPlay.Launch(c, m, p).Invoke()
                End Function
     End Function
 
     Private Function ChooseNeverMind(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As IDialogChoice
-        Return DialogChoice.CreateEnabled("Never Mind", FeaturesMenu.Launch(context, model, previous))
+        Return DialogChoice.CreateEnabled("Never Mind", InPlay.Launch(context, model, previous))
     End Function
 End Class

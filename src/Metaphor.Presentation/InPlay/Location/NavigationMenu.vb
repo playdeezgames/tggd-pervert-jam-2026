@@ -58,10 +58,6 @@ Friend Class NavigationMenu
         Return DialogChoice.Create(Not model.Avatar.IsDead AndAlso model.Location.Characters.HasAny, "Characters...", CharactersMenu.Launch(context, model, previous))
     End Function
 
-    Private Function ChooseFeatures(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As IDialogChoice
-        Return DialogChoice.Create(Not model.Avatar.IsDead AndAlso model.Location.Features.HasAny, "Features...", FeaturesMenu.Launch(context, model, previous))
-    End Function
-
     Private Function ChooseInventory(
                                     context As IDisplayContext,
                                     model As IWorldModel,

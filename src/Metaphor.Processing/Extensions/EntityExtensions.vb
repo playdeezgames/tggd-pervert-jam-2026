@@ -27,4 +27,12 @@ Friend Module EntityExtensions
     Friend Function GetVisibility(entity As IMetaphorEntity) As Double
         Return entity.GetDimension(Dimensions.VISIBILITY)
     End Function
+    <Extension>
+    Friend Sub SetJools(entity As IMetaphorEntity, jools As Double)
+        entity.SetDimension(Dimensions.JOOLS, jools)
+    End Sub
+    <Extension>
+    Friend Function GetJools(entity As IMetaphorEntity) As Double
+        Return entity.GetDimension(Dimensions.JOOLS)
+    End Function
 End Module

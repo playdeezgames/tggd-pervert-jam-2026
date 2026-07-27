@@ -53,6 +53,7 @@ Friend Module CharacterExtensions
         world.AddMessage($"Health: {character.GetHealth()}/{character.GetMaximumHealth()}")
         world.AddMessage($"Satiety: {character.GetSatiety()}/{character.GetMaximumSatiety()}")
         world.AddMessage($"Stomach: {character.GetStomach()}/{character.GetMaximumStomach()}")
+        world.AddMessage($"Jools: {character.GetJools():f2}")
     End Sub
     <Extension>
     Friend Function GetFleshGrams(character As ICharacter) As Integer

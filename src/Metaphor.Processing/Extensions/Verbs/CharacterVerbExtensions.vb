@@ -7,8 +7,13 @@ Friend Module CharacterVerbExtensions
 
     Private ReadOnly canPerformTable As New Dictionary(Of String, CanPerformHandler) From
         {
-            {VerbTypes.HEAD_FOR_KNOWN_ISLAND, AddressOf CanHeadForKnownIsland}
+            {VerbTypes.HEAD_FOR_KNOWN_ISLAND, AddressOf CanHeadForKnownIsland},
+            {VerbTypes.DELIVER_PACKAGE, AddressOf CanDeliverPackage}
         }
+
+    Private Function CanDeliverPackage(verb As IVerb, character As ICharacter) As Boolean
+        Return verb.World.Avatar.Inventory.Items.Any(Function(x) If(x.Recipient?.EntityId = character.EntityId, False))
+    End Function
 
     Private Function CanHeadForKnownIsland(verb As IVerb, character As ICharacter) As Boolean
         Dim avatar = verb.World.Avatar
@@ -26,8 +31,18 @@ Friend Module CharacterVerbExtensions
 
     Private ReadOnly performTable As New Dictionary(Of String, PerformHandler) From
         {
-            {VerbTypes.HEAD_FOR_KNOWN_ISLAND, AddressOf HandleHeadForKnownIsland}
+            {VerbTypes.HEAD_FOR_KNOWN_ISLAND, AddressOf HandleHeadForKnownIsland},
+            {VerbTypes.DELIVER_PACKAGE, AddressOf HandleDeliverPackage}
         }
+
+    Private Sub HandleDeliverPackage(verb As IVerb, character As ICharacter)
+        Dim world = verb.World
+        Dim avatar = world.Avatar
+        Dim item = avatar.Inventory.Items.Single(Function(x) If(x.Recipient?.EntityId = character.EntityId, False))
+        avatar.ChangeDimension(Dimensions.JOOLS, item.GetJools())
+        item.Remove()
+        character.Remove()
+    End Sub
 
     Private Sub HandleHeadForKnownIsland(verb As IVerb, character As ICharacter)
         character.SetTag(Tags.CHOOSING_KNOWN_ISLAND)

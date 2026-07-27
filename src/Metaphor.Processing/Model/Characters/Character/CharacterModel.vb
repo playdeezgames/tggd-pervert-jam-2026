@@ -21,6 +21,12 @@ Friend Class CharacterModel
         End Get
     End Property
 
+    Public ReadOnly Property Exists As Boolean Implements ICharacterModel.Exists
+        Get
+            Return character.Exists
+        End Get
+    End Property
+
     Public Sub Examine() Implements ICharacterModel.Examine
         Dim world = character.World
         world.ClearMessages()

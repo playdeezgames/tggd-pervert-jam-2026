@@ -18,11 +18,13 @@ Friend Module IslandsInitializer
                    island.SetDimension(Dimensions.VISIBILITY, RNG.RollDice("3d8"))
                    island.SetDimension(Dimensions.LONGITUDE, coordinate.Longitude)
                    island.SetDimension(Dimensions.LATITUDE, coordinate.Latitude)
+                   island.CreateJobBoard()
                End Sub
     End Function
 
     Private Function GenerateNames(context As IInitializationContext, count As Integer) As Queue(Of String)
         Dim result As New HashSet(Of String)
+        result.Add("Ümläüt")
         While result.Count < count
             result.Add(context.GenerateName())
         End While

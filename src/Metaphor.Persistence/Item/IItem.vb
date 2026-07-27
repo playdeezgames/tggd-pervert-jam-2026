@@ -2,4 +2,5 @@
 Public Interface IItem
     Inherits IVerbableEntity
     Property Inventory As IInventory
+    Property Recipient As ICharacter
 End Interface

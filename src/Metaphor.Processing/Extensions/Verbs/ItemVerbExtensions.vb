@@ -31,6 +31,7 @@ Friend Module ItemVerbExtensions
         world.AddMessage($"{avatar.Name} gains {stomach} stomach.")
         avatar.ChangeCounter(Counters.STOMACH, stomach)
         world.AddMessage($"{avatar.Name} now has {avatar.GetStomach}/{avatar.GetMaximumStomach} stomach.")
+        item.Remove()
     End Sub
 
     <Extension>
