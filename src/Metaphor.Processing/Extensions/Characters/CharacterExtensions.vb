@@ -99,6 +99,9 @@ Friend Module CharacterExtensions
             world.AddMessage($"{character.Name}'s stomach goes down by {stomach}.")
             character.ChangeCounter(Counters.STOMACH, -stomach)
             world.AddMessage($"{character.Name} now has a stomach of {character.GetStomach}/{character.GetMaximumStomach}.")
+            world.AddMessage($"{character.Name}'s satiety goes up by {stomach}.")
+            character.ChangeCounter(Counters.SATIETY, stomach)
+            world.AddMessage($"{character.Name} now has a satiety of {character.GetSatiety}/{character.GetMaximumSatiety}.")
         End If
         Dim satiety = Math.Min(character.GetSatiety(), amount)
         amount -= satiety
