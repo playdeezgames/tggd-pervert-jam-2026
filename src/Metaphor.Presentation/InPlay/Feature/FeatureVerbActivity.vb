@@ -21,6 +21,6 @@ Friend Class FeatureVerbActivity
 
     Public Overrides Function Run() As IDialogPrompt
         verbModel.Perform()
-        Return FeatureMenu.Launch(Context, Model, Previous, featureModel).Invoke().Run
+        Return InPlay.Launch(Context, Model, Previous).Invoke().Run
     End Function
 End Class

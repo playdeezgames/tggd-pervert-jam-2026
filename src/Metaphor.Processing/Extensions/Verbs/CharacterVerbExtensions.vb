@@ -39,7 +39,9 @@ Friend Module CharacterVerbExtensions
         Dim world = verb.World
         Dim avatar = world.Avatar
         Dim item = avatar.Inventory.Items.Single(Function(x) If(x.Recipient?.EntityId = character.EntityId, False))
+        world.AddMessage($"{avatar.Name} receives {item.GetJools()} jools.")
         avatar.ChangeDimension(Dimensions.JOOLS, item.GetJools())
+        avatar.ClearTag(Tags.DELIVERING)
         item.Remove()
         character.Remove()
     End Sub
