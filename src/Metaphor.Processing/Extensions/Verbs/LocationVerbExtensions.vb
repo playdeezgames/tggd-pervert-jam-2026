@@ -78,6 +78,7 @@ Friend Module LocationVerbExtensions
         Dim nextLatitude = ship.GetLatitude() + deltaLatitude
         ship.SetLongitude(nextLongitude)
         ship.SetLatitude(nextLatitude)
+        avatar.DoBiology(1)
         avatar.Look()
     End Sub
 

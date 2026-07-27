@@ -24,6 +24,9 @@ Friend Module ShipInitializer
                    character.World.Avatar = character
                    character.Ship = character.Location
                    character.InitializeCounter(Counters.FLESH_GRAMS, 454, 0, 454)
+                   character.InitializeCounter(Counters.HEALTH, 100, 0, 100)
+                   character.InitializeCounter(Counters.SATIETY, 100, 0, 100)
+                   character.InitializeCounter(Counters.STOMACH, 0, 0, 50)
                    character.CreateVerb(VerbTypes.HEAD_FOR_KNOWN_ISLAND, "Head for known island...", String.Empty)
                End Sub
     End Function

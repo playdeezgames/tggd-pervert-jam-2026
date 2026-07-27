@@ -4,6 +4,7 @@
     ReadOnly Property Verbs As IEnumerable(Of IVerbModel)
     Sub Look()
     ReadOnly Property Ship As IShipModel
+    ReadOnly Property IsDead As Boolean
 #Region "Known Island"
     ReadOnly Property IsChoosingKnownIsland As Boolean
     Sub ChooseKnownIsland(islandModel As IIslandModel)
