@@ -7,14 +7,18 @@ Friend Module LocationExtensions
         Select Case location.EntityType
             Case LocationTypes.SHIP
                 DescribeShip(location)
+            Case LocationTypes.ISLAND
+                DescribeIsland(location)
             Case Else
                 Throw New NotImplementedException
         End Select
     End Sub
+
     <Extension>
-    Friend Sub MoorTo(fromLocation As ILocation, toLocation As ILocation)
+    Friend Sub MoorTo(fromLocation As ILocation, toLocation As ILocation, verbName As String)
         Dim moorings = fromLocation.CreateFeature(FeatureTypes.MOORINGS, $"Moorings to {toLocation.Name}", $"Lines securely fasten {fromLocation.Name} to {toLocation.Name}.")
         moorings.Destination = toLocation
+        moorings.CreateVerb(VerbTypes.MOVE, verbName, $"You move to {toLocation.Name}.")
     End Sub
     <Extension>
     Friend Sub RemoveMoorings(location As ILocation)

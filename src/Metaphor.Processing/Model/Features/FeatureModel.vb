@@ -23,7 +23,7 @@ Friend Class FeatureModel
 
     Public ReadOnly Property Exists As Boolean Implements IFeatureModel.Exists
         Get
-            Return feature.Exists
+            Return feature.Exists AndAlso feature.Location.EntityId = feature.World.Avatar.Location.EntityId
         End Get
     End Property
 

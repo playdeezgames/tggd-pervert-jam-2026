@@ -60,8 +60,8 @@ Friend Module LocationVerbExtensions
 
     Private Sub HandleDock(verb As IVerb, ship As ILocation)
         Dim island = verb.World.Islands.Single(Function(x) x.DistanceTo(ship) <= DOCKING_DISTANCE)
-        ship.MoorTo(island)
-        island.MoorTo(ship)
+        ship.MoorTo(island, "Disembark")
+        island.MoorTo(ship, "Embark")
         island.SetTag(Tags.KNOWN)
         verb.World.Avatar.AddKnownIsland(island)
     End Sub

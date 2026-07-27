@@ -2,6 +2,11 @@
 Imports Metaphor.Persistence
 
 Friend Module IslandExtensions
+    Friend Sub DescribeIsland(island As ILocation)
+        Dim world = island.World
+        world.AddMessage($"Island: {island.Name}")
+    End Sub
+
     <Extension>
     Function IsVisibleTo(fromLocation As ILocation, toLocation As ILocation) As Boolean
         Return fromLocation.DistanceTo(toLocation) <= Math.Min(fromLocation.GetVisibility(), toLocation.GetVisibility())

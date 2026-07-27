@@ -20,7 +20,14 @@ Friend Module FeatureVerbExtensions
 
     Private ReadOnly performTable As New Dictionary(Of String, PerformHandler) From
         {
+            {VerbTypes.MOVE, AddressOf HandleMove}
         }
+
+    Private Sub HandleMove(verb As IVerb, feature As IFeature)
+        Dim world = verb.World
+        Dim avatar = world.Avatar
+        avatar.Location = feature.Destination
+    End Sub
 
     <Extension>
     Sub Perform(verb As IVerb, feature As IFeature)
