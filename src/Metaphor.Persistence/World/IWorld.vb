@@ -11,4 +11,7 @@ Public Interface IWorld
     Property AdFinish As DateTimeOffset?
     Sub AddIsland(island As ILocation)
     ReadOnly Property Islands As IEnumerable(Of ILocation)
+    Function CreateCommodity(commodityType As String, name As String, Optional initializer As CommodityInitializer = Nothing) As ICommodity
+    ReadOnly Property Commodities(commodityType As String) As ICommodity
+    ReadOnly Property CommodityIds As IEnumerable(Of String)
 End Interface

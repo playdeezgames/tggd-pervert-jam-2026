@@ -28,7 +28,11 @@ Friend Module ShipInitializer
                    character.InitializeCounter(Counters.HEALTH, 100, 0, 100)
                    character.InitializeCounter(Counters.SATIETY, 100, 0, 100)
                    character.InitializeCounter(Counters.STOMACH, 0, 0, 50)
+#If DEBUG Then
+                   character.InitializeDimension(Dimensions.JOOLS, 100.0, 0.0, Double.MaxValue)
+#Else
                    character.InitializeDimension(Dimensions.JOOLS, 0.0, 0.0, Double.MaxValue)
+#End If
                    Utility.Repeat(10, AddressOf character.Inventory.CreateHardtack)
                    character.CreateVerb(VerbTypes.HEAD_FOR_KNOWN_ISLAND, "Head for known island...", String.Empty)
                End Sub

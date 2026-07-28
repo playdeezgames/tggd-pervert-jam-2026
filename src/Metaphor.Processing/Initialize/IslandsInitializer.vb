@@ -1,4 +1,5 @@
-﻿Imports Metaphor.Persistence
+﻿Imports System.Runtime.CompilerServices
+Imports Metaphor.Persistence
 Imports TGGD.Processing
 
 Friend Module IslandsInitializer
@@ -19,8 +20,32 @@ Friend Module IslandsInitializer
                    island.SetDimension(Dimensions.LONGITUDE, coordinate.Longitude)
                    island.SetDimension(Dimensions.LATITUDE, coordinate.Latitude)
                    island.CreateJobBoard()
+                   island.InitializeCommodities()
+                   island.CreateMarket()
                End Sub
     End Function
+    <Extension>
+    Private Sub CreateMarket(island As ILocation)
+        island.CreateFeature(FeatureTypes.MARKET, "Market", "A place where you can buy and sell goods.", AddressOf InitializeMarket)
+    End Sub
+
+    Private Sub InitializeMarket(market As IFeature)
+        market.AddItemType(ItemTypes.HARDTACK)
+        market.CreateVerb(VerbTypes.BUY, "Buy...", String.Empty)
+        market.CreateVerb(VerbTypes.SELL, "Sell...", String.Empty)
+    End Sub
+
+    <Extension>
+    Private Sub InitializeCommodities(island As ILocation)
+        For Each commodity In island.World.GetCommodities()
+            island.CreateCommodity(commodity.CommodityType, AddressOf InitializeIslandCommodity)
+        Next
+    End Sub
+
+    Private Sub InitializeIslandCommodity(islandCommodity As IIslandCommodity)
+        islandCommodity.Supply = RNG.RollDice("3d6")
+        islandCommodity.Demand = RNG.RollDice("3d6")
+    End Sub
 
     Private Function GenerateNames(context As IInitializationContext, count As Integer) As Queue(Of String)
         Dim result As New HashSet(Of String)
