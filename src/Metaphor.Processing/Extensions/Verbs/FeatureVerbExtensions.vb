@@ -8,8 +8,14 @@ Friend Module FeatureVerbExtensions
 
     Private ReadOnly canPerformTable As New Dictionary(Of String, CanPerformHandler) From
         {
-            {VerbTypes.ACCEPT_DELIVERY, AddressOf CanAcceptDelivery}
+            {VerbTypes.ACCEPT_DELIVERY, AddressOf CanAcceptDelivery},
+            {VerbTypes.SELL, AddressOf CanSell}
         }
+
+    Private Function CanSell(verb As IVerb, feature As IFeature) As Boolean
+        Dim itemTypes As New HashSet(Of String)(verb.World.Avatar.Ship.GetCargoHold().Inventory.ItemStacks.Select(Function(x) x.ItemType))
+        Return feature.ItemTypes.Any(Function(x) itemTypes.Contains(x))
+    End Function
 
     Private Function CanAcceptDelivery(verb As IVerb, feature As IFeature) As Boolean
         Return Not verb.World.Avatar.HasTag(Tags.DELIVERING)
@@ -27,8 +33,18 @@ Friend Module FeatureVerbExtensions
     Private ReadOnly performTable As New Dictionary(Of String, PerformHandler) From
         {
             {VerbTypes.MOVE, AddressOf HandleMove},
-            {VerbTypes.ACCEPT_DELIVERY, AddressOf HandleAcceptDelivery}
+            {VerbTypes.ACCEPT_DELIVERY, AddressOf HandleAcceptDelivery},
+            {VerbTypes.SELL, AddressOf HandleSell},
+            {VerbTypes.BUY, AddressOf HandleBuy}
         }
+
+    Private Sub HandleBuy(verb As IVerb, feature As IFeature)
+        verb.World.Avatar.SetTag(Tags.BUYING)
+    End Sub
+
+    Private Sub HandleSell(verb As IVerb, feature As IFeature)
+        verb.World.Avatar.SetTag(Tags.SELLING)
+    End Sub
 
     Private Sub HandleAcceptDelivery(verb As IVerb, feature As IFeature)
         Dim world = verb.World

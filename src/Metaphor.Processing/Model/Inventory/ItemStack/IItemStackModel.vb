@@ -5,4 +5,5 @@
     ReadOnly Property Count As Integer
     Sub Drop(dropCount As Integer)
     Sub Take(takeCount As Integer)
+    Sub Stow(stowCount As Integer)
 End Interface

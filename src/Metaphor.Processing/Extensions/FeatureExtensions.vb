@@ -17,4 +17,8 @@ Friend Module FeatureExtensions
             Next
         End If
     End Sub
+    <Extension>
+    Friend Function IsCargoHold(feature As IFeature) As Boolean
+        Return feature.EntityType = FeatureTypes.CARGO_HOLD
+    End Function
 End Module

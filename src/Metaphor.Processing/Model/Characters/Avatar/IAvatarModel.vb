@@ -5,6 +5,11 @@
     Sub Look()
     ReadOnly Property Ship As IShipModel
     ReadOnly Property IsDead As Boolean
+    ReadOnly Property CanStow As Boolean
+    ReadOnly Property IsSelling As Boolean
+    ReadOnly Property IsBuying As Boolean
+    Sub CancelSelling()
+    Sub CancelBuying()
 #Region "Known Island"
     ReadOnly Property IsChoosingKnownIsland As Boolean
     Sub ChooseKnownIsland(islandModel As IIslandModel)

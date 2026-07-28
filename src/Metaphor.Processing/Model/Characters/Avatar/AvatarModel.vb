@@ -45,6 +45,24 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property CanStow As Boolean Implements IAvatarModel.CanStow
+        Get
+            Return avatar.Location.Features.Any(Function(x) x.IsCargoHold())
+        End Get
+    End Property
+
+    Public ReadOnly Property IsSelling As Boolean Implements IAvatarModel.IsSelling
+        Get
+            Return avatar.HasTag(Tags.SELLING)
+        End Get
+    End Property
+
+    Public ReadOnly Property IsBuying As Boolean Implements IAvatarModel.IsBuying
+        Get
+            Return avatar.HasTag(Tags.BUYING)
+        End Get
+    End Property
+
     Public Sub ShowStatus() Implements IAvatarModel.ShowStatus
         avatar.World.ClearMessages()
         avatar.ShowStatus()
@@ -60,6 +78,14 @@ Friend Class AvatarModel
         If islandModel IsNot Nothing Then
             islandModel.SetHeadingFor()
         End If
+    End Sub
+
+    Public Sub CancelSelling() Implements IAvatarModel.CancelSelling
+        avatar.ClearTag(Tags.SELLING)
+    End Sub
+
+    Public Sub CancelBuying() Implements IAvatarModel.CancelBuying
+        avatar.ClearTag(Tags.BUYING)
     End Sub
 
     Friend Shared Function Create(avatar As ICharacter) As IAvatarModel

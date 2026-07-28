@@ -34,23 +34,31 @@ Friend Class ItemStackModel
     End Property
 
     Public Sub Drop(dropCount As Integer) Implements IItemStackModel.Drop
+        dropCount = Math.Min(dropCount, ItemStack.Count)
         Dim world = ItemStack.Top.World
         Dim character = world.Avatar
         world.ClearMessages()
         character.World.AddMessage($"{character.Name} drops {dropCount} {ItemStack.Top.Name}.")
-        For Each dummy In Enumerable.Range(0, dropCount)
-            ItemStack.Top.Inventory = character.Location.Inventory
-        Next
+        Utility.Repeat(dropCount, Sub() ItemStack.Top.Inventory = character.Location.Inventory)
     End Sub
 
     Public Sub Take(takeCount As Integer) Implements IItemStackModel.Take
+        takeCount = Math.Min(takeCount, ItemStack.Count)
         Dim world = ItemStack.Top.World
         Dim character = world.Avatar
         world.ClearMessages()
         character.World.AddMessage($"{character.Name} takes {takeCount} {ItemStack.Top.Name}.")
-        For Each dummy In Enumerable.Range(0, takeCount)
-            ItemStack.Top.Inventory = character.Inventory
-        Next
+        Utility.Repeat(takeCount, Sub() ItemStack.Top.Inventory = character.Inventory)
+    End Sub
+
+    Public Sub Stow(stowCount As Integer) Implements IItemStackModel.Stow
+        stowCount = Math.Min(stowCount, ItemStack.Count)
+        Dim world = ItemStack.Top.World
+        Dim character = world.Avatar
+        Dim cargoHold = character.Location.GetCargoHold()
+        world.ClearMessages()
+        character.World.AddMessage($"{character.Name} stows {stowCount} {ItemStack.Top.Name}.")
+        Utility.Repeat(stowCount, Sub() ItemStack.Top.Inventory = cargoHold.Inventory)
     End Sub
 
     Friend Shared Function Create(itemStack As IItemStack) As IItemStackModel

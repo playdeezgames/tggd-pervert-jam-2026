@@ -16,6 +16,12 @@ Friend Class InPlay
         If Model.Ad.InProgress Then
             Return AdPrompt.Launch(Context, Model, Previous).Invoke().Run()
         End If
+        If Model.Avatar.IsSelling Then
+            Return SellingMenu.Launch(Context, Model, Previous).Invoke().Run()
+        End If
+        If Model.Avatar.IsBuying Then
+            Return BuyingMenu.Launch(Context, Model, Previous).Invoke().Run()
+        End If
         If Model.Avatar.IsChoosingKnownIsland Then
             Return ChooseKnownIslandPrompt.Launch(Context, Model, Previous).Invoke().Run()
         End If
