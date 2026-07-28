@@ -19,10 +19,10 @@ Friend Class InPlay
         If Model.Avatar.IsSelling Then
             Return SellingMenu.Launch(Context, Model, Previous).Invoke().Run()
         End If
-        If Model.Avatar.IsBuying Then
+        If Model.Avatar.Buying.IsBuying Then
             Return BuyingMenu.Launch(Context, Model, Previous).Invoke().Run()
         End If
-        If Model.Avatar.IsChoosingKnownIsland Then
+        If Model.Avatar.KnownIslands.IsPicking Then
             Return ChooseKnownIslandPrompt.Launch(Context, Model, Previous).Invoke().Run()
         End If
         If Model.Avatar.Ship.IsSettingHeading Then

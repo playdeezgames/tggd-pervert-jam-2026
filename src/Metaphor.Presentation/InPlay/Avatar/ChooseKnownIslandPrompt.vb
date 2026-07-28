@@ -18,7 +18,7 @@ Friend Class ChooseKnownIslandPrompt
         Get
             Return Enumerable.Empty(Of LaunchDelegate).
                 Append(AddressOf ChooseNeverMind).
-                Concat(Model.Avatar.LegacyKnownIslands.Select(AddressOf ChooseKnownIsland))
+                Concat(Model.Avatar.KnownIslands.All.Select(AddressOf ChooseKnownIsland))
         End Get
     End Property
 
@@ -44,7 +44,7 @@ Friend Class ChooseKnownIslandPrompt
     End Function
 
     Private Function CancelChoosingKnownIsland() As IDialog
-        Model.Avatar.ChooseKnownIsland(Nothing)
+        Model.Avatar.KnownIslands.HeadFor(Nothing)
         Return InPlay.Launch(Context, Model, Previous).Invoke()
     End Function
 End Class

@@ -8,19 +8,19 @@ Friend Class AvatarKnownIslandsModel
         Me.avatar = avatar
     End Sub
 
-    Public ReadOnly Property IsChoosingKnownIsland As Boolean Implements IAvatarKnownIslandsModel.IsChoosingKnownIsland
+    Public ReadOnly Property IsPicking As Boolean Implements IAvatarKnownIslandsModel.IsPicking
         Get
             Return avatar.HasTag(Tags.CHOOSING_KNOWN_ISLAND)
         End Get
     End Property
 
-    Public ReadOnly Property LegacyKnownIslands As IEnumerable(Of IIslandModel) Implements IAvatarKnownIslandsModel.LegacyKnownIslands
+    Public ReadOnly Property All As IEnumerable(Of IIslandModel) Implements IAvatarKnownIslandsModel.All
         Get
             Return avatar.KnownIslands.Select(AddressOf IslandModel.Create)
         End Get
     End Property
 
-    Public Sub ChooseKnownIsland(islandModel As IIslandModel) Implements IAvatarKnownIslandsModel.ChooseKnownIsland
+    Public Sub HeadFor(islandModel As IIslandModel) Implements IAvatarKnownIslandsModel.HeadFor
         avatar.ClearTag(Tags.CHOOSING_KNOWN_ISLAND)
         If islandModel IsNot Nothing Then
             islandModel.SetHeadingFor()

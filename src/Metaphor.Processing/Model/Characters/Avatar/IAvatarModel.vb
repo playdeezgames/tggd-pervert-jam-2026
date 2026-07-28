@@ -13,13 +13,4 @@
     ReadOnly Property IsSelling As Boolean
     Sub CancelSelling()
 #End Region
-#Region "Buying"
-    ReadOnly Property IsBuying As Boolean
-    Sub CancelBuying()
-#End Region
-#Region "Known Island"
-    ReadOnly Property IsChoosingKnownIsland As Boolean
-    Sub ChooseKnownIsland(islandModel As IIslandModel)
-    ReadOnly Property LegacyKnownIslands As IEnumerable(Of IIslandModel)
-#End Region
 End Interface

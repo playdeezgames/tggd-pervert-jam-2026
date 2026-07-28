@@ -27,7 +27,7 @@ Friend Class BuyingMenu
     End Function
 
     Private Function CancelBuying() As IDialog
-        Model.Avatar.CancelBuying()
+        Model.Avatar.Buying.CancelBuying()
         Return InPlay.Launch(Context, Model, Previous).Invoke
     End Function
 
