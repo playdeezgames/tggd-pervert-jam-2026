@@ -8,13 +8,13 @@ Friend Class AvatarSellingModel
     Private Sub New(avatar As ICharacter)
         Me.avatar = avatar
     End Sub
-    Public ReadOnly Property IsSelling As Boolean Implements IAvatarSellingModel.IsSelling
+    Public ReadOnly Property Active As Boolean Implements IAvatarSellingModel.Active
         Get
             Return avatar.HasTag(Tags.SELLING)
         End Get
     End Property
 
-    Public Sub CancelSelling() Implements IAvatarSellingModel.CancelSelling
+    Public Sub Cancel() Implements IAvatarSellingModel.Cancel
         avatar.ClearTag(Tags.SELLING)
     End Sub
 

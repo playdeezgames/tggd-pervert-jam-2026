@@ -1,4 +1,4 @@
 ﻿Public Interface IAvatarSellingModel
-    ReadOnly Property IsSelling As Boolean
-    Sub CancelSelling()
+    ReadOnly Property Active As Boolean
+    Sub Cancel()
 End Interface

@@ -39,12 +39,6 @@ Friend Class AvatarModel
         End Get
     End Property
 
-    Public ReadOnly Property IsSelling As Boolean Implements IAvatarModel.IsSelling
-        Get
-            Return avatar.HasTag(Tags.SELLING)
-        End Get
-    End Property
-
     Public ReadOnly Property Selling As IAvatarSellingModel Implements IAvatarModel.Selling
         Get
             Return AvatarSellingModel.Create(avatar)
@@ -71,10 +65,6 @@ Friend Class AvatarModel
     Public Sub Look() Implements IAvatarModel.Look
         avatar.World.ClearMessages()
         avatar.Look()
-    End Sub
-
-    Public Sub CancelSelling() Implements IAvatarModel.CancelSelling
-        avatar.ClearTag(Tags.SELLING)
     End Sub
 
     Friend Shared Function Create(avatar As ICharacter) As IAvatarModel

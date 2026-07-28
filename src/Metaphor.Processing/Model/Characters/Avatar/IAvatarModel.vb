@@ -9,8 +9,4 @@
     ReadOnly Property Selling As IAvatarSellingModel
     ReadOnly Property Buying As IAvatarBuyingModel
     ReadOnly Property KnownIslands As IAvatarKnownIslandsModel
-#Region "Selling"
-    ReadOnly Property IsSelling As Boolean
-    Sub CancelSelling()
-#End Region
 End Interface

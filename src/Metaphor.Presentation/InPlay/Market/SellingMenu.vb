@@ -27,7 +27,7 @@ Friend Class SellingMenu
     End Function
 
     Private Function CancelSelling() As IDialog
-        Model.Avatar.CancelSelling()
+        Model.Avatar.Selling.Cancel()
         Return InPlay.Launch(Context, Model, Previous).Invoke()
     End Function
 
