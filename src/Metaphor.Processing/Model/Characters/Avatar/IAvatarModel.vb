@@ -6,10 +6,14 @@
     ReadOnly Property Ship As IShipModel
     ReadOnly Property IsDead As Boolean
     ReadOnly Property CanStow As Boolean
+#Region "Selling"
     ReadOnly Property IsSelling As Boolean
-    ReadOnly Property IsBuying As Boolean
     Sub CancelSelling()
+#End Region
+#Region "Buying"
+    ReadOnly Property IsBuying As Boolean
     Sub CancelBuying()
+#End Region
 #Region "Known Island"
     ReadOnly Property IsChoosingKnownIsland As Boolean
     Sub ChooseKnownIsland(islandModel As IIslandModel)
