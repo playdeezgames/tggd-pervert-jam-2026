@@ -18,7 +18,7 @@ Friend Class ChooseKnownIslandPrompt
         Get
             Return Enumerable.Empty(Of LaunchDelegate).
                 Append(AddressOf ChooseNeverMind).
-                Concat(Model.Avatar.KnownIslands.Select(AddressOf ChooseKnownIsland))
+                Concat(Model.Avatar.LegacyKnownIslands.Select(AddressOf ChooseKnownIsland))
         End Get
     End Property
 
