@@ -24,9 +24,14 @@ Friend Class FeatureItemStackMenu
         Get
             Return Enumerable.Empty(Of LaunchDelegate).
                 Append(AddressOf ChooseNeverMind).
+                Append(AddressOf ChooseTake).
                 Concat(itemStackModel.Items.Select(AddressOf ChooseItem))
         End Get
     End Property
+
+    Private Function ChooseTake(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As IDialogChoice
+        Return DialogChoice.CreateEnabled("Take...", TakeFromFeatureItemStackPrompt.Launch(context, model, previous, featureModel, itemStackModel))
+    End Function
 
     Private Function ChooseItem(itemModel As IItemModel) As LaunchDelegate
         Return Function(c, m, p)

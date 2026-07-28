@@ -9,5 +9,7 @@
     Friend Const SELL As String = NameOf(SELL)
     Friend Const SET_HEADING As String = NameOf(SET_HEADING)
     Friend Const SET_SPEED As String = NameOf(SET_SPEED)
+    Friend Const STOW As String = NameOf(STOW)
+    Friend Const TAKE As String = NameOf(TAKE)
     Friend Const UNDOCK As String = NameOf(UNDOCK)
 End Module

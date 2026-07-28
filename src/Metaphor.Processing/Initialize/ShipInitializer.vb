@@ -17,8 +17,15 @@ Friend Module ShipInitializer
                    ship.CreateVerb(VerbTypes.SET_HEADING, "Set Heading", "You use the helm to set a new heading.")
                    ship.CreateVerb(VerbTypes.SET_SPEED, "Set Speed", "You use the sails to set a new speed.")
                    ship.CreateCharacter(CharacterTypes.N00B, context.ChosenName, context.ChosenPronouns, $"{context.ChosenName}'s pronouns are {context.ChosenPronouns}.", InitializeAvatar(context))
+                   ship.CreateFeature(FeatureTypes.CARGO_HOLD, "Cargo Hold", "This is the cargo hold. It is where you hold yer cargo.", AddressOf InitializeCargoHold)
                End Sub
     End Function
+
+    Private Sub InitializeCargoHold(feature As IFeature)
+#If DEBUG Then
+        Utility.Repeat(100, Sub() feature.Inventory.CreateHardtack())
+#End If
+    End Sub
 
     Private Function InitializeAvatar(context As IInitializationContext) As CharacterInitializer
         Return Sub(character)
