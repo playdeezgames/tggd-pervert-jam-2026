@@ -18,9 +18,16 @@ Friend Class SellingMenu
     Protected Overrides ReadOnly Property Launchers As IEnumerable(Of LaunchDelegate)
         Get
             Return Enumerable.Empty(Of LaunchDelegate).
-                Append(AddressOf ChooseNeverMind)
+                Append(AddressOf ChooseNeverMind).
+                Concat(Model.Avatar.Selling.ItemStacks.Select(Function(x) ChooseItemStack(x)))
         End Get
     End Property
+
+    Private Shared Function ChooseItemStack(itemStackModel As IItemStackModel) As LaunchDelegate
+        Return Function(c, m, p)
+                   Return DialogChoice.CreateEnabled($"{itemStackModel.Top.Name}(x{itemStackModel.Count}, @ {itemStackModel.UnitPrice:f4})", SellItemQuantityPrompt.Launch(c, m, p, itemStackModel))
+               End Function
+    End Function
 
     Private Function ChooseNeverMind(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As IDialogChoice
         Return DialogChoice.CreateEnabled("Never Mind", AddressOf CancelSelling)

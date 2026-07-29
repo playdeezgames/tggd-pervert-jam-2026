@@ -14,6 +14,12 @@ Friend Class AvatarSellingModel
         End Get
     End Property
 
+    Public ReadOnly Property ItemStacks As IEnumerable(Of IItemStackModel) Implements IAvatarSellingModel.ItemStacks
+        Get
+            Return avatar.Ship.GetCargoHold().Inventory.ItemStacks.Select(AddressOf ItemStackModel.Create)
+        End Get
+    End Property
+
     Public Sub Cancel() Implements IAvatarSellingModel.Cancel
         avatar.ClearTag(Tags.SELLING)
     End Sub

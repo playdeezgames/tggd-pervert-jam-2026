@@ -33,6 +33,12 @@ Friend Class ItemStackModel
         End Get
     End Property
 
+    Public ReadOnly Property UnitPrice As Double Implements IItemStackModel.UnitPrice
+        Get
+            Return If(ItemStack.Top.World.Avatar.Location.GetMarket()?.GetUnitPrice(ItemStack.ItemType), 0.0)
+        End Get
+    End Property
+
     Public Sub Drop(dropCount As Integer) Implements IItemStackModel.Drop
         dropCount = Math.Min(dropCount, ItemStack.Count)
         Dim world = ItemStack.Top.World
@@ -59,6 +65,17 @@ Friend Class ItemStackModel
         world.ClearMessages()
         character.World.AddMessage($"{character.Name} stows {stowCount} {ItemStack.Top.Name}.")
         Utility.Repeat(stowCount, Sub() ItemStack.Top.Inventory = cargoHold.Inventory)
+    End Sub
+
+    Public Sub Sell(quantity As Integer) Implements IItemStackModel.Sell
+        Dim avatar = ItemStack.Top.World.Avatar
+        Dim market = avatar.Location.GetMarket()
+        If market Is Nothing Then
+            Return
+        End If
+        avatar.ChangeDimension(Dimensions.JOOLS, market.GetUnitPrice(ItemStack.ItemType) * quantity)
+        market.Sell(ItemStack.ItemType, quantity)
+        Utility.Repeat(quantity, Sub() ItemStack.Top.Remove())
     End Sub
 
     Friend Shared Function Create(itemStack As IItemStack) As IItemStackModel

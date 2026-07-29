@@ -48,4 +48,8 @@ Friend Module IslandExtensions
     Private Function GenerateName(island As ILocation) As String
         Return "Nacho Mama"
     End Function
+    <Extension>
+    Friend Function GetMarket(island As ILocation) As IFeature
+        Return island.Features.SingleOrDefault(Function(x) x.EntityType = FeatureTypes.MARKET)
+    End Function
 End Module

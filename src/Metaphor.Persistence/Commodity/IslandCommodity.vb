@@ -77,6 +77,12 @@ Friend Class IslandCommodity
 
     Public ReadOnly Property CommodityType As String Implements ICommodity.CommodityType
 
+    Public ReadOnly Property MarketPrice As Double Implements IIslandCommodity.MarketPrice
+        Get
+            Return BasePrice * Demand / Supply
+        End Get
+    End Property
+
     Private ReadOnly _data As WorldData
     Private ReadOnly locationId As Guid
 

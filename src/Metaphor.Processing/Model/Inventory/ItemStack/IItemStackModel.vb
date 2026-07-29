@@ -6,4 +6,6 @@
     Sub Drop(dropCount As Integer)
     Sub Take(takeCount As Integer)
     Sub Stow(stowCount As Integer)
+    Sub Sell(quantity As Integer)
+    ReadOnly Property UnitPrice As Double
 End Interface
