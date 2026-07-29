@@ -16,12 +16,12 @@ Friend Module WorldInitializer
     Private Sub InitializeLabour(commodity As ICommodity)
         commodity.BasePrice = 5.0
         commodity.SupplyFactor = 0.01
-        commodity.DemandFactor = 0.01
+        commodity.DemandFactor = 0.005
     End Sub
 
     Private Sub InitializeGrain(commodity As ICommodity)
         commodity.BasePrice = 1.0
         commodity.SupplyFactor = 0.01
-        commodity.DemandFactor = 0.01
+        commodity.DemandFactor = 0.005
     End Sub
 End Module

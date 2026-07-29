@@ -1,10 +1,25 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports Metaphor.Persistence
-
+Friend Delegate Sub ItemGenerator(inventory As IInventory)
 Friend Module InventoryExtensions
+    Private ReadOnly itemTypeNames As New Dictionary(Of String, String) From
+        {
+            {ItemTypes.HARDTACK, "Hardtack"}
+        }
+    Private ReadOnly itemGenerator As New Dictionary(Of String, ItemGenerator) From
+        {
+            {ItemTypes.HARDTACK, AddressOf CreateHardtack}
+        }
+    Private Sub CreateHardtack(inventory As IInventory)
+        inventory.CreateItem(
+            ItemTypes.HARDTACK,
+            GetItemTypeName(ItemTypes.HARDTACK),
+            "This is food, technically.",
+            AddressOf InitializeHardtack)
+    End Sub
     <Extension>
-    Friend Sub CreateHardtack(inventory As IInventory)
-        inventory.CreateItem(ItemTypes.HARDTACK, "Hardtack", "This is food, technically.", AddressOf InitializeHardtack)
+    Friend Sub CreateItemOfType(inventory As IInventory, itemType As String)
+        itemGenerator(itemType).Invoke(inventory)
     End Sub
 
     Private Sub InitializeHardtack(item As IItem)
@@ -16,5 +31,9 @@ Friend Module InventoryExtensions
         Dim item = inventory.CreateItem(ItemTypes.PACKAGE, "Package", "Its a package. You deliver them.")
         item.Recipient = recipient
         Return item
+    End Function
+
+    Friend Function GetItemTypeName(itemType As String) As String
+        Return itemTypeNames(itemType)
     End Function
 End Module

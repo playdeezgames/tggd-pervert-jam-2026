@@ -25,7 +25,7 @@ Friend Class SellingMenu
 
     Private Shared Function ChooseItemStack(itemStackModel As IItemStackModel) As LaunchDelegate
         Return Function(c, m, p)
-                   Return DialogChoice.CreateEnabled($"{itemStackModel.Top.Name}(x{itemStackModel.Count}, @ {itemStackModel.UnitPrice:f4})", SellItemQuantityPrompt.Launch(c, m, p, itemStackModel))
+                   Return DialogChoice.CreateEnabled($"{itemStackModel.Top.Name}(x{itemStackModel.Count}, @ {itemStackModel.UnitSellPrice:f4})", SellItemQuantityPrompt.Launch(c, m, p, itemStackModel))
                End Function
     End Function
 

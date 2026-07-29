@@ -13,6 +13,16 @@ Friend Class AvatarBuyingModel
         End Get
     End Property
 
+    Public ReadOnly Property ItemTypes As IEnumerable(Of IItemTypeModel) Implements IAvatarBuyingModel.ItemTypes
+        Get
+            Dim market = avatar.Location.GetMarket()
+            If market Is Nothing Then
+                Return Enumerable.Empty(Of IItemTypeModel)
+            End If
+            Return market.ItemTypes.Select(Function(x) ItemTypeModel.Create(market, x))
+        End Get
+    End Property
+
     Public Sub Cancel() Implements IAvatarBuyingModel.Cancel
         avatar.ClearTag(Tags.BUYING)
     End Sub

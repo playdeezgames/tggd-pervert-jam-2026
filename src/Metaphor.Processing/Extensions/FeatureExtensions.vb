@@ -32,13 +32,25 @@ Friend Module FeatureExtensions
             }
         }
     <Extension>
-    Friend Function GetUnitPrice(feature As IFeature, itemType As String) As Double
+    Private Function GetUnitPrice(feature As IFeature, itemType As String) As Double
         Dim commodityQuantities As Dictionary(Of String, Double) = Nothing
         If feature.EntityType <> FeatureTypes.MARKET OrElse Not itemTypeCommodityQuanitities.TryGetValue(itemType, commodityQuantities) Then
             Return 0.0
         End If
         Dim island = feature.Location
         Return commodityQuantities.Sum(Function(x) x.Value * island.IslandCommodities(x.Key).MarketPrice)
+    End Function
+    <Extension>
+    Friend Function GetUnitBuyPrice(feature As IFeature, itemType As String) As Double
+        Return GetUnitPrice(feature, itemType)
+    End Function
+    <Extension>
+    Friend Function GetUnitSellPrice(feature As IFeature, itemType As String) As Double
+        Return GetUnitPrice(feature, itemType) * 0.9
+    End Function
+    <Extension>
+    Friend Function GetItemTypeName(market As IFeature, itemType As String) As String
+        Return InventoryExtensions.GetItemTypeName(itemType)
     End Function
     <Extension>
     Friend Sub Sell(feature As IFeature, itemType As String, quantity As Integer)
@@ -49,6 +61,17 @@ Friend Module FeatureExtensions
         Dim island = feature.Location
         For Each entry In commodityQuantities
             island.IslandCommodities(entry.Key).Sell(quantity * entry.Value)
+        Next
+    End Sub
+    <Extension>
+    Friend Sub Buy(feature As IFeature, itemType As String, quantity As Integer)
+        Dim commodityQuantities As Dictionary(Of String, Double) = Nothing
+        If feature.EntityType <> FeatureTypes.MARKET OrElse Not itemTypeCommodityQuanitities.TryGetValue(itemType, commodityQuantities) Then
+            Return
+        End If
+        Dim island = feature.Location
+        For Each entry In commodityQuantities
+            island.IslandCommodities(entry.Key).Buy(quantity * entry.Value)
         Next
     End Sub
 End Module

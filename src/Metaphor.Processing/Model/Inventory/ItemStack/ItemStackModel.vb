@@ -33,9 +33,9 @@ Friend Class ItemStackModel
         End Get
     End Property
 
-    Public ReadOnly Property UnitPrice As Double Implements IItemStackModel.UnitPrice
+    Public ReadOnly Property UnitSellPrice As Double Implements IItemStackModel.UnitSellPrice
         Get
-            Return If(ItemStack.Top.World.Avatar.Location.GetMarket()?.GetUnitPrice(ItemStack.ItemType), 0.0)
+            Return If(ItemStack.Top.World.Avatar.Location.GetMarket()?.GetUnitSellPrice(ItemStack.ItemType), 0.0)
         End Get
     End Property
 
@@ -73,7 +73,7 @@ Friend Class ItemStackModel
         If market Is Nothing Then
             Return
         End If
-        avatar.ChangeDimension(Dimensions.JOOLS, market.GetUnitPrice(ItemStack.ItemType) * quantity)
+        avatar.ChangeDimension(Dimensions.JOOLS, market.GetUnitSellPrice(ItemStack.ItemType) * quantity)
         market.Sell(ItemStack.ItemType, quantity)
         Utility.Repeat(quantity, Sub() ItemStack.Top.Remove())
     End Sub

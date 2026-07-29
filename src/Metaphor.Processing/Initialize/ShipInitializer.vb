@@ -23,7 +23,7 @@ Friend Module ShipInitializer
 
     Private Sub InitializeCargoHold(feature As IFeature)
 #If DEBUG Then
-        Utility.Repeat(100, Sub() feature.Inventory.CreateHardtack())
+        Utility.Repeat(100, Sub() feature.Inventory.CreateItemOfType(ItemTypes.HARDTACK))
 #End If
     End Sub
 
@@ -40,7 +40,7 @@ Friend Module ShipInitializer
 #Else
                    character.InitializeDimension(Dimensions.JOOLS, 0.0, 0.0, Double.MaxValue)
 #End If
-                   Utility.Repeat(10, AddressOf character.Inventory.CreateHardtack)
+                   Utility.Repeat(10, Sub() character.Inventory.CreateItemOfType(ItemTypes.HARDTACK))
                    character.CreateVerb(VerbTypes.HEAD_FOR_KNOWN_ISLAND, "Head for known island...", String.Empty)
                End Sub
     End Function

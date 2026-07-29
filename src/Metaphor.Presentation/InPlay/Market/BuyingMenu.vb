@@ -18,9 +18,16 @@ Friend Class BuyingMenu
     Protected Overrides ReadOnly Property Launchers As IEnumerable(Of LaunchDelegate)
         Get
             Return Enumerable.Empty(Of LaunchDelegate).
-                Append(AddressOf ChooseNeverMind)
+                Append(AddressOf ChooseNeverMind).
+                Concat(Model.Avatar.Buying.ItemTypes.Select(AddressOf ChooseItemType))
         End Get
     End Property
+
+    Private Function ChooseItemType(itemTypeModel As IItemTypeModel) As LaunchDelegate
+        Return Function(c, m, p)
+                   Return DialogChoice.CreateEnabled($"{itemTypeModel.Name} @ {itemTypeModel.UnitBuyPrice:f4}", BuyItemTypeQuantityPrompt.Launch(c, m, p, itemTypeModel))
+               End Function
+    End Function
 
     Private Function ChooseNeverMind(context As IDisplayContext, model As IWorldModel, previous As DialogSource) As IDialogChoice
         Return DialogChoice.CreateEnabled("Never Mind", AddressOf CancelBuying)
