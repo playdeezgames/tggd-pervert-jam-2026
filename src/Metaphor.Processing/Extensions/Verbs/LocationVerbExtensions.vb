@@ -11,8 +11,18 @@ Friend Module LocationVerbExtensions
             {VerbTypes.DOCK, AddressOf CanDock},
             {VerbTypes.SET_HEADING, AddressOf CanSetHeading},
             {VerbTypes.SET_SPEED, AddressOf CanSetSpeed},
-            {VerbTypes.UNDOCK, AddressOf CanUndock}
+            {VerbTypes.UNDOCK, AddressOf CanUndock},
+            {VerbTypes.DISEMBARK, AddressOf CanDisembark},
+            {VerbTypes.EMBARK, AddressOf CanEmbark}
         }
+
+    Private Function CanEmbark(verb As IVerb, location As ILocation) As Boolean
+        Return location.Features.Any(Function(x) x.EntityType = FeatureTypes.MOORINGS)
+    End Function
+
+    Private Function CanDisembark(verb As IVerb, location As ILocation) As Boolean
+        Return location.Features.Any(Function(x) x.EntityType = FeatureTypes.MOORINGS)
+    End Function
 
     Private Function CanUndock(verb As IVerb, ship As ILocation) As Boolean
         Return ship.IsMoored
@@ -49,8 +59,30 @@ Friend Module LocationVerbExtensions
             {VerbTypes.SET_SPEED, AddressOf HandleSetSpeed},
             {VerbTypes.MOVE, AddressOf HandleMove},
             {VerbTypes.DOCK, AddressOf HandleDock},
-            {VerbTypes.UNDOCK, AddressOf HandleUndock}
+            {VerbTypes.UNDOCK, AddressOf HandleUndock},
+            {VerbTypes.EMBARK, AddressOf HandleEmbark},
+            {VerbTypes.DISEMBARK, AddressOf HandleDisembark}
         }
+
+    Private Sub HandleDisembark(verb As IVerb, location As ILocation)
+        Dim world = verb.World
+        Dim avatar = world.Avatar
+        Dim fromLocation = avatar.Location
+        Dim destination = location.Features.Single(Function(x) x.EntityType = FeatureTypes.MOORINGS).Destination
+        avatar.Location = destination
+        world.AddMessage($"{avatar.Name} moves from {fromLocation.Name} to {destination.Name}.")
+        avatar.Look()
+    End Sub
+
+    Private Sub HandleEmbark(verb As IVerb, location As ILocation)
+        Dim world = verb.World
+        Dim avatar = world.Avatar
+        Dim fromLocation = avatar.Location
+        Dim destination = location.Features.Single(Function(x) x.EntityType = FeatureTypes.MOORINGS).Destination
+        avatar.Location = destination
+        world.AddMessage($"{avatar.Name} moves from {fromLocation.Name} to {destination.Name}.")
+        avatar.Look()
+    End Sub
 
     Private Sub HandleUndock(verb As IVerb, ship As ILocation)
         Dim island = ship.Features.Single(Function(x) x.EntityType = FeatureTypes.MOORINGS).Destination

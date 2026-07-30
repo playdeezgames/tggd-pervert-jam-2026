@@ -18,7 +18,6 @@ Friend Module LocationExtensions
     Friend Sub MoorTo(fromLocation As ILocation, toLocation As ILocation, verbName As String)
         Dim moorings = fromLocation.CreateFeature(FeatureTypes.MOORINGS, $"Moorings to {toLocation.Name}", $"Lines securely fasten {fromLocation.Name} to {toLocation.Name}.")
         moorings.Destination = toLocation
-        moorings.CreateVerb(VerbTypes.MOVE, verbName, $"You move to {toLocation.Name}.")
     End Sub
     <Extension>
     Friend Sub RemoveMoorings(location As ILocation)

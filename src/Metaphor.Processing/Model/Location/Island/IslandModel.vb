@@ -23,6 +23,7 @@ Friend Class IslandModel
         Dim ship = avatar.Ship
         ship.SetHeading(ship.HeadingTo(island))
         world.AddMessage($"{avatar.Name} heads for {island.GetIslandName()} by setting a heading of {ship.GetHeading():f2}.")
+        avatar.Look()
     End Sub
 
     Friend Shared Function Create(island As ILocation) As IIslandModel

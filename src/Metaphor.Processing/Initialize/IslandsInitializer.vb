@@ -19,6 +19,7 @@ Friend Module IslandsInitializer
                    island.SetDimension(Dimensions.VISIBILITY, RNG.RollDice("3d8"))
                    island.SetDimension(Dimensions.LONGITUDE, coordinate.Longitude)
                    island.SetDimension(Dimensions.LATITUDE, coordinate.Latitude)
+                   island.CreateVerb(VerbTypes.Embark, "Embark", "You step onto the ship.")
                    island.CreateJobBoard()
                    island.InitializeCommodities()
                    island.CreateMarket()
