@@ -17,10 +17,12 @@ Friend Class IslandModel
     End Property
 
     Public Sub SetHeadingFor() Implements IIslandModel.SetHeadingFor
-        Dim avatar = island.World.Avatar
+        Dim world = island.World
+        Dim avatar = world.Avatar
         avatar.ClearTag(Tags.CHOOSING_KNOWN_ISLAND)
         Dim ship = avatar.Ship
         ship.SetHeading(ship.HeadingTo(island))
+        world.AddMessage($"{avatar.Name} heads for {island.GetIslandName()} by setting a heading of {ship.GetHeading():f2}.")
     End Sub
 
     Friend Shared Function Create(island As ILocation) As IIslandModel
