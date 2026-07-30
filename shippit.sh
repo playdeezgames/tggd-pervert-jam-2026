@@ -10,7 +10,7 @@ rm -f ./pub-linux/*.pdb
 rm -f ./pub-windows/*.pdb
 rm -f ./pub-mac/*.pdb
 rm -f ./pub-html/*.pdb
-butler push pub-windows thegrumpygamedev/TBDTITLE:windows
-butler push pub-linux thegrumpygamedev/TBDTITLE:linux
-butler push pub-mac thegrumpygamedev/TBDTITLE:mac
-butler push pub-html/wwwroot thegrumpygamedev/TBDTITLE:html
+butler push pub-windows thegrumpygamedev/flesh-grams-454:windows
+butler push pub-linux thegrumpygamedev/flesh-grams-454:linux
+butler push pub-mac thegrumpygamedev/flesh-grams-454:mac
+butler push pub-html/wwwroot thegrumpygamedev/flesh-grams-454:html
