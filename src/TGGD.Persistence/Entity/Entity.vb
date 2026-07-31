@@ -209,4 +209,12 @@ Public MustInherit Class Entity(Of TData As EntityData)
     Public Function HasDimension(dimensionId As String) As Boolean Implements IEntity.HasDimension
         Return Data.Dimensions.ContainsKey(dimensionId)
     End Function
+
+    Public Function IsDimensionMinimum(dimensionId As String) As Boolean Implements IEntity.IsDimensionMinimum
+        Return GetDimension(dimensionId) = GetDimensionMinimum(dimensionId)
+    End Function
+
+    Public Function IsDimensionMaximum(dimensionId As String) As Boolean Implements IEntity.IsDimensionMaximum
+        Return GetDimension(dimensionId) = GetDimensionMaximum(dimensionId)
+    End Function
 End Class

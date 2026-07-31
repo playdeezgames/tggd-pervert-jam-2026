@@ -16,6 +16,9 @@ Friend Class InPlay
         If Model.Ad.InProgress Then
             Return AdPrompt.Launch(Context, Model, Previous).Invoke().Run()
         End If
+        If Model.Avatar.Unfouling.Active Then
+            Return UnfoulingMenu.Launch(Context, Model, Previous).Invoke().Run()
+        End If
         If Model.Avatar.Selling.Active Then
             Return SellingMenu.Launch(Context, Model, Previous).Invoke().Run()
         End If

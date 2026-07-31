@@ -19,12 +19,22 @@ Friend Module IslandsInitializer
                    island.SetDimension(Dimensions.VISIBILITY, RNG.RollDice("3d8"))
                    island.SetDimension(Dimensions.LONGITUDE, coordinate.Longitude)
                    island.SetDimension(Dimensions.LATITUDE, coordinate.Latitude)
-                   island.CreateVerb(VerbTypes.Embark, "Embark", "You step onto the ship.")
+                   island.CreateVerb(VerbTypes.EMBARK, "Embark", "You step onto the ship.")
+                   island.CreateShipwright()
                    island.CreateJobBoard()
                    island.InitializeCommodities()
                    island.CreateMarket()
                End Sub
     End Function
+    <Extension>
+    Private Sub CreateShipwright(island As ILocation)
+        island.CreateFeature(FeatureTypes.SHIPWRIGHT, "Shipwright", "A shipwright works on ships. Among other things, they can remove fouling from a vessel.", AddressOf InitializeShipwright)
+    End Sub
+
+    Private Sub InitializeShipwright(feature As IFeature)
+        feature.CreateVerb(VerbTypes.UNFOUL, "Unfoul ship", "You can pay the shipwright to remove the fouling from yer ship.")
+    End Sub
+
     <Extension>
     Private Sub CreateMarket(island As ILocation)
         island.CreateFeature(FeatureTypes.MARKET, "Market", "A place where you can buy and sell goods.", AddressOf InitializeMarket)

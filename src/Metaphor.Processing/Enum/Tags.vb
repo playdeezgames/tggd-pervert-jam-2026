@@ -6,4 +6,5 @@
     Friend Const SETTING_HEADING As String = NameOf(SETTING_HEADING)
     Friend Const SETTING_SPEED As String = NameOf(SETTING_SPEED)
     Friend Const SELLING As String = NameOf(SELLING)
+    Friend Const UNFOULING As String = NameOf(UNFOULING)
 End Module

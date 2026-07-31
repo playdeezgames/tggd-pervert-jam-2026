@@ -57,6 +57,12 @@ Friend Class AvatarModel
         End Get
     End Property
 
+    Public ReadOnly Property Unfouling As IAvatarUnfoulingModel Implements IAvatarModel.Unfouling
+        Get
+            Return AvatarUnfoulingModel.Create(avatar)
+        End Get
+    End Property
+
     Public Sub ShowStatus() Implements IAvatarModel.ShowStatus
         avatar.World.ClearMessages()
         avatar.ShowStatus()

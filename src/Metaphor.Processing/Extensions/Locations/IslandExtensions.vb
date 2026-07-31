@@ -52,4 +52,10 @@ Friend Module IslandExtensions
     Friend Function GetMarket(island As ILocation) As IFeature
         Return island.Features.SingleOrDefault(Function(x) x.EntityType = FeatureTypes.MARKET)
     End Function
+    <Extension>
+    Friend Function GetUnfoulingPrice(island As ILocation) As Double
+        Dim fouling = island.World.Avatar.Ship.GetDimension(Dimensions.FOULING)
+        Dim labor = fouling * UNFOULING_LABOR_FACTOR
+        Return island.IslandCommodities(CommodityTypes.LABOUR).MarketPrice * labor
+    End Function
 End Module

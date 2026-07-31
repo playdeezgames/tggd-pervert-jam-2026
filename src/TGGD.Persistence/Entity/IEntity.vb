@@ -36,4 +36,6 @@ Public Interface IEntity
     Function HasDimension(dimensionId As String) As Boolean
     Function IsCounterMinimum(counterId As String) As Boolean
     Function IsCounterMaximum(counterId As String) As Boolean
+    Function IsDimensionMinimum(dimensionId As String) As Boolean
+    Function IsDimensionMaximum(dimensionId As String) As Boolean
 End Interface

@@ -9,8 +9,13 @@ Friend Module FeatureVerbExtensions
     Private ReadOnly canPerformTable As New Dictionary(Of String, CanPerformHandler) From
         {
             {VerbTypes.ACCEPT_DELIVERY, AddressOf CanAcceptDelivery},
-            {VerbTypes.SELL, AddressOf CanSell}
+            {VerbTypes.SELL, AddressOf CanSell},
+            {VerbTypes.UNFOUL, AddressOf CanUnfoul}
         }
+
+    Private Function CanUnfoul(verb As IVerb, feature As IFeature) As Boolean
+        Return Not verb.World.Avatar.Ship.IsDimensionMinimum(Dimensions.FOULING)
+    End Function
 
     Private Function CanSell(verb As IVerb, feature As IFeature) As Boolean
         Dim itemTypes As New HashSet(Of String)(verb.World.Avatar.Ship.GetCargoHold().Inventory.ItemStacks.Select(Function(x) x.ItemType))
@@ -36,8 +41,19 @@ Friend Module FeatureVerbExtensions
             {VerbTypes.ACCEPT_DELIVERY, AddressOf HandleAcceptDelivery},
             {VerbTypes.SELL, AddressOf HandleSell},
             {VerbTypes.BUY, AddressOf HandleBuy},
-            {VerbTypes.PRICES, AddressOf HandlePrices}
+            {VerbTypes.PRICES, AddressOf HandlePrices},
+            {VerbTypes.UNFOUL, AddressOf HandleUnfoul}
         }
+
+    Private Sub HandleUnfoul(verb As IVerb, feature As IFeature)
+        Dim world = verb.World
+        Dim avatar = world.Avatar
+        Dim island = avatar.Location
+        Dim jools = avatar.Location.GetUnfoulingPrice()
+        world.AddMessage($"{avatar.Name}'s ship is currently {avatar.Ship.GetFoulingPercent():f0}% fouled.")
+        world.AddMessage($"The price will be {jools:f2}.")
+        avatar.SetTag(Tags.UNFOULING)
+    End Sub
 
     Private Sub HandlePrices(verb As IVerb, feature As IFeature)
         Dim world = verb.World

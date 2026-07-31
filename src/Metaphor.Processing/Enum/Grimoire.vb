@@ -13,4 +13,5 @@
     Friend Const MINIMUM_ISLAND_DISTANCE = 10.0
     Friend Const DOCKING_DISTANCE = 1.0
     Friend Const SELL_PRICE_FACTOR = 0.8
+    Friend Const UNFOULING_LABOR_FACTOR = 1.0
 End Module
