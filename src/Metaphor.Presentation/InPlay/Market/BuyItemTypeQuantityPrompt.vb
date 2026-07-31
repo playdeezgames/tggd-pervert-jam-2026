@@ -16,7 +16,7 @@ Friend Class BuyItemTypeQuantityPrompt
     End Function
 
     Public Overrides Function Run() As IDialogPrompt
-        Return DialogPrompt.CreateIntegerPrompt($"How many {itemTypeModel.Name} @ {itemTypeModel.UnitBuyPrice:f4}?", AddressOf ChooseQuantity)
+        Return DialogPrompt.CreateIntegerPrompt($"How many {itemTypeModel.Name} @ {itemTypeModel.UnitBuyPrice:f4} (can afford {itemTypeModel.MaximumBuyQuantity})?", AddressOf ChooseQuantity)
     End Function
 
     Private Function ChooseQuantity(quantity As Integer) As IDialog

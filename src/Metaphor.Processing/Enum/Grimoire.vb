@@ -12,4 +12,5 @@
     Friend Const ISLAND_GENERATION_ATTEMPTS = 500
     Friend Const MINIMUM_ISLAND_DISTANCE = 10.0
     Friend Const DOCKING_DISTANCE = 1.0
+    Friend Const SELL_PRICE_FACTOR = 0.8
 End Module

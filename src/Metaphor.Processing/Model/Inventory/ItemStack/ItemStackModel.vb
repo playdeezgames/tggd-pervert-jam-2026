@@ -68,12 +68,17 @@ Friend Class ItemStackModel
     End Sub
 
     Public Sub Sell(quantity As Integer) Implements IItemStackModel.Sell
-        Dim avatar = ItemStack.Top.World.Avatar
+        Dim world = ItemStack.Top.World
+        Dim avatar = world.Avatar
         Dim market = avatar.Location.GetMarket()
         If market Is Nothing Then
             Return
         End If
-        avatar.ChangeDimension(Dimensions.JOOLS, market.GetUnitSellPrice(ItemStack.ItemType) * quantity)
+        world.ClearMessages()
+        Dim jools = market.GetUnitSellPrice(ItemStack.ItemType) * quantity
+        world.AddMessage($"{avatar.Name} sells {quantity} {ItemStack.Top.Name} for {jools:f2} jools.")
+        avatar.ChangeDimension(Dimensions.JOOLS, jools)
+        world.AddMessage($"{avatar.Name} now has {avatar.GetJools:f2} jools.")
         market.Sell(ItemStack.ItemType, quantity)
         Utility.Repeat(quantity, Sub() ItemStack.Top.Remove())
     End Sub

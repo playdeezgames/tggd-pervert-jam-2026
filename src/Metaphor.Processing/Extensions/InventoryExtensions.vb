@@ -4,12 +4,22 @@ Friend Delegate Sub ItemGenerator(inventory As IInventory)
 Friend Module InventoryExtensions
     Private ReadOnly itemTypeNames As New Dictionary(Of String, String) From
         {
-            {ItemTypes.HARDTACK, "Hardtack"}
+            {ItemTypes.HARDTACK, "Hardtack"},
+            {ItemTypes.BAG_O_GRAIN, "Bag O'Grain"}
         }
     Private ReadOnly itemGenerator As New Dictionary(Of String, ItemGenerator) From
         {
-            {ItemTypes.HARDTACK, AddressOf CreateHardtack}
+            {ItemTypes.HARDTACK, AddressOf CreateHardtack},
+            {ItemTypes.BAG_O_GRAIN, AddressOf CreateBagOGrain}
         }
+
+    Private Sub CreateBagOGrain(inventory As IInventory)
+        inventory.CreateItem(
+            ItemTypes.BAG_O_GRAIN,
+            GetItemTypeName(ItemTypes.BAG_O_GRAIN),
+            "This is a bag of grain. No, it isn't Irish. The `O'` means `of`!")
+    End Sub
+
     Private Sub CreateHardtack(inventory As IInventory)
         inventory.CreateItem(
             ItemTypes.HARDTACK,

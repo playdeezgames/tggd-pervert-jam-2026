@@ -35,15 +35,33 @@ Friend Module FeatureVerbExtensions
             {VerbTypes.MOVE, AddressOf HandleMove},
             {VerbTypes.ACCEPT_DELIVERY, AddressOf HandleAcceptDelivery},
             {VerbTypes.SELL, AddressOf HandleSell},
-            {VerbTypes.BUY, AddressOf HandleBuy}
+            {VerbTypes.BUY, AddressOf HandleBuy},
+            {VerbTypes.PRICES, AddressOf HandlePrices}
         }
 
+    Private Sub HandlePrices(verb As IVerb, feature As IFeature)
+        Dim world = verb.World
+        world.ClearMessages()
+        world.AddMessage($"Prices on {feature.Location.Name}:")
+        For Each itemType In feature.ItemTypes
+            world.AddMessage($"- {feature.GetItemTypeName(itemType)} (Buying @ {feature.GetUnitBuyPrice(itemType):f4}, Selling @ {feature.GetUnitSellPrice(itemType):f4})")
+        Next
+    End Sub
+
     Private Sub HandleBuy(verb As IVerb, feature As IFeature)
-        verb.World.Avatar.SetTag(Tags.BUYING)
+        Dim world = verb.World
+        Dim avatar = world.Avatar
+        world.AddMessage($"{avatar.Name} is buying at the market.")
+        world.AddMessage($"Jools: {avatar.GetJools():f2}")
+        avatar.SetTag(Tags.BUYING)
     End Sub
 
     Private Sub HandleSell(verb As IVerb, feature As IFeature)
-        verb.World.Avatar.SetTag(Tags.SELLING)
+        Dim world = verb.World
+        Dim avatar = world.Avatar
+        world.AddMessage($"{avatar.Name} is selling at the market.")
+        world.AddMessage($"Jools: {avatar.GetJools():f2}")
+        avatar.SetTag(Tags.SELLING)
     End Sub
 
     Private Sub HandleAcceptDelivery(verb As IVerb, feature As IFeature)

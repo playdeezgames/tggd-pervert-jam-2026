@@ -32,8 +32,10 @@ Friend Module IslandsInitializer
 
     Private Sub InitializeMarket(market As IFeature)
         market.AddItemType(ItemTypes.HARDTACK)
+        market.AddItemType(ItemTypes.BAG_O_GRAIN)
         market.CreateVerb(VerbTypes.BUY, "Buy...", String.Empty)
         market.CreateVerb(VerbTypes.SELL, "Sell...", String.Empty)
+        market.CreateVerb(VerbTypes.PRICES, "Prices...", String.Empty)
     End Sub
 
     <Extension>

@@ -8,6 +8,7 @@
     Friend Const EMBARK As String = NameOf(EMBARK)
     Friend Const HEAD_FOR_KNOWN_ISLAND As String = NameOf(HEAD_FOR_KNOWN_ISLAND)
     Friend Const MOVE As String = NameOf(MOVE)
+    Friend Const PRICES As String = NameOf(PRICES)
     Friend Const SELL As String = NameOf(SELL)
     Friend Const SET_HEADING As String = NameOf(SET_HEADING)
     Friend Const SET_SPEED As String = NameOf(SET_SPEED)

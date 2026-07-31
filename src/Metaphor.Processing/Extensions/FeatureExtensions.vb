@@ -21,7 +21,7 @@ Friend Module FeatureExtensions
     Friend Function IsCargoHold(feature As IFeature) As Boolean
         Return feature.EntityType = FeatureTypes.CARGO_HOLD
     End Function
-    Private ReadOnly itemTypeCommodityQuanitities As New Dictionary(Of String, Dictionary(Of String, Double)) From
+    Private ReadOnly itemTypeCommodityQuantities As New Dictionary(Of String, Dictionary(Of String, Double)) From
         {
             {
                 ItemTypes.HARDTACK,
@@ -29,12 +29,19 @@ Friend Module FeatureExtensions
                 {
                     {CommodityTypes.GRAIN, 0.1}
                 }
+            },
+            {
+                ItemTypes.BAG_O_GRAIN,
+                New Dictionary(Of String, Double) From
+                {
+                    {CommodityTypes.GRAIN, 1.0}
+                }
             }
         }
     <Extension>
     Private Function GetUnitPrice(feature As IFeature, itemType As String) As Double
         Dim commodityQuantities As Dictionary(Of String, Double) = Nothing
-        If feature.EntityType <> FeatureTypes.MARKET OrElse Not itemTypeCommodityQuanitities.TryGetValue(itemType, commodityQuantities) Then
+        If feature.EntityType <> FeatureTypes.MARKET OrElse Not itemTypeCommodityQuantities.TryGetValue(itemType, commodityQuantities) Then
             Return 0.0
         End If
         Dim island = feature.Location
@@ -46,7 +53,7 @@ Friend Module FeatureExtensions
     End Function
     <Extension>
     Friend Function GetUnitSellPrice(feature As IFeature, itemType As String) As Double
-        Return GetUnitPrice(feature, itemType) * 0.9
+        Return GetUnitPrice(feature, itemType) * SELL_PRICE_FACTOR
     End Function
     <Extension>
     Friend Function GetItemTypeName(market As IFeature, itemType As String) As String
@@ -55,7 +62,7 @@ Friend Module FeatureExtensions
     <Extension>
     Friend Sub Sell(feature As IFeature, itemType As String, quantity As Integer)
         Dim commodityQuantities As Dictionary(Of String, Double) = Nothing
-        If feature.EntityType <> FeatureTypes.MARKET OrElse Not itemTypeCommodityQuanitities.TryGetValue(itemType, commodityQuantities) Then
+        If feature.EntityType <> FeatureTypes.MARKET OrElse Not itemTypeCommodityQuantities.TryGetValue(itemType, commodityQuantities) Then
             Return
         End If
         Dim island = feature.Location
@@ -66,7 +73,7 @@ Friend Module FeatureExtensions
     <Extension>
     Friend Sub Buy(feature As IFeature, itemType As String, quantity As Integer)
         Dim commodityQuantities As Dictionary(Of String, Double) = Nothing
-        If feature.EntityType <> FeatureTypes.MARKET OrElse Not itemTypeCommodityQuanitities.TryGetValue(itemType, commodityQuantities) Then
+        If feature.EntityType <> FeatureTypes.MARKET OrElse Not itemTypeCommodityQuantities.TryGetValue(itemType, commodityQuantities) Then
             Return
         End If
         Dim island = feature.Location

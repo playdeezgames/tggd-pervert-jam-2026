@@ -23,14 +23,25 @@ Friend Class ItemTypeModel
         End Get
     End Property
 
+    Public ReadOnly Property MaximumBuyQuantity As Integer Implements IItemTypeModel.MaximumBuyQuantity
+        Get
+            Return CInt(market.World.Avatar.GetJools() / UnitBuyPrice)
+        End Get
+    End Property
+
     Public Sub Buy(quantity As Integer) Implements IItemTypeModel.Buy
-        Dim avatar = market.World.Avatar
+        Dim world = market.World
+        Dim avatar = world.Avatar
         quantity = Math.Clamp(quantity, 0, CInt(avatar.GetJools() / UnitBuyPrice))
-        avatar.ChangeDimension(Dimensions.JOOLS, -quantity * UnitBuyPrice)
+        Dim jools = quantity * UnitBuyPrice
+        avatar.ChangeDimension(Dimensions.JOOLS, -jools)
         market.Buy(itemType, quantity)
         Utility.Repeat(quantity, Sub()
                                      avatar.Ship.GetCargoHold().Inventory.CreateItemOfType(itemType)
                                  End Sub)
+        world.ClearMessages()
+        world.AddMessage($"{avatar.Name} buys {quantity} {Name} for {jools:f2} jools.")
+        world.AddMessage($"{avatar.Name} now has {avatar.GetJools:f2} jools.")
     End Sub
 
     Friend Shared Function Create(market As IFeature, itemType As String) As IItemTypeModel
